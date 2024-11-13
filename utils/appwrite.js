@@ -17,58 +17,41 @@ export const config = {
   transactionsId: "67324ddf000157b3c31a",
 };
 
+// Инициализация клиента Appwrite
 const client = new Client();
-
 client.setEndpoint(config.endpoint).setProject(config.projectId);
 
 const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
+const storage = new Storage(client);
 
-export async function createUser(email, password, username) {
+// --- Утилиты для работы с пользователем ---
+export const getCurrentUser = async () => {
   try {
-    const newAccount = await account.create(
-      ID.unique(),
-      email,
-      password,
-      username
-    );
-
-    if (!newAccount) throw new Error("Ошибка при создании аккаунта");
-
-    const avatarUrl = avatars.getInitials(username);
-    const newUser = await databases.createDocument(
+    const currentAccount = await account.get();
+    const currentUser = await databases.listDocuments(
       config.databaseId,
       config.userCollectionId,
-      ID.unique(),
-      {
-        accountId: newAccount.$id,
-        email,
-        username,
-        avatar: avatarUrl,
-        totalAmount: 0,
-      }
+      [Query.equal("accountId", currentAccount.$id)]
     );
 
-    return newUser;
-  } catch (error) {
-    console.error(error);
-    throw new Error(error.message);
-  }
-}
+    if (!currentUser || currentUser.documents.length === 0) {
+      throw new Error("Документ пользователя не найден");
+    }
 
-export async function checkAuth() {
-  try {
-    await account.get();
-    return true;
+    return currentUser.documents[0];
   } catch (error) {
-    return false;
+    console.error("Ошибка при получении текущего пользователя:", error);
+    return null; // Явно возвращаем null
   }
-}
+};
 
+// --- Аутентификация ---
 export async function signIn(email, password) {
   try {
-    const session = await account.createEmailPasswordSession(email, password);
+    const session = await account.createEmailPasswordSession(email, password); // Новый метод для создания сессии
+    console.log("Успешный вход, сессия создана:", session);
     return session;
   } catch (error) {
     console.error("Ошибка входа:", error);
@@ -78,91 +61,67 @@ export async function signIn(email, password) {
 
 export async function signOut() {
   try {
-    const session = await account.deleteSession("current");
-    return session;
+    await account.deleteSession("current");
+    console.log("Выход выполнен.");
   } catch (error) {
     console.error("Ошибка при выходе из аккаунта:", error);
     throw error;
   }
 }
 
-async function createSessionIfNotExist(email, password) {
-  try {
-    const session = await account.getSession("current"); // Получаем текущую сессию
-    if (session) {
-      console.log("Сессия уже активна");
-      return; // Сессия уже существует, не нужно создавать новую
-    }
-  } catch (error) {
-    // Если сессия не существует, создаем новую
-    console.log("Сессия не найдена, создаем новую");
-    await account.createSession(email, password); // Создаём сессию
-  }
-}
-
+// --- Транзакции ---
 export async function createTransaction(amount, userId) {
   try {
-    const currentUser = await getCurrentUser(); // Получаем текущего пользователя
+    const currentUser = await getCurrentUser();
 
     if (!currentUser) {
       throw new Error("Пользователь не аутентифицирован");
     }
 
-    // Получаем текущий баланс пользователя (totalAmount)
-    let newTotalAmount = currentUser.totalAmount || 0;
+    const newTotalAmount = (currentUser.totalAmount || 0) + amount;
 
-    // Добавляем сумму депозита к текущему балансу
-    newTotalAmount += amount;
-
-    // Создаем транзакцию депозита
+    // Создаем транзакцию
     const transaction = await databases.createDocument(
       config.databaseId,
       config.transactionsId,
       ID.unique(),
       {
-        users: userId, // Используйте реальное название поля связи из вашей базы данных
+        users: userId,
         status: "completed",
-        deposit: amount, // Сумма депозита
-        withdraw: 0, // Нет вывода
-        totalAmount: newTotalAmount, // Обновленный баланс после депозита
+        deposit: amount,
+        withdraw: 0,
+        totalAmount: newTotalAmount,
       }
     );
 
-    // Обновляем документ пользователя, увеличивая totalAmount
+    // Обновляем баланс пользователя
     await databases.updateDocument(
       config.databaseId,
       config.userCollectionId,
       currentUser.$id,
-      {
-        totalAmount: newTotalAmount, // Обновляем поле totalAmount пользователя
-      }
+      { totalAmount: newTotalAmount }
     );
 
     return transaction;
   } catch (error) {
     console.error("Ошибка при создании транзакции:", error);
-    throw new Error(error.message);
+    throw new Error("Не удалось создать транзакцию.");
   }
 }
 
 export async function withdrawTransaction(amount) {
   try {
-    const currentUser = await getCurrentUser(); // Получаем текущего пользователя
+    const currentUser = await getCurrentUser();
 
     if (!currentUser) {
       throw new Error("Пользователь не аутентифицирован");
     }
 
-    // Получаем текущий баланс пользователя
-    let newTotalAmount = currentUser.totalAmount || 0;
-
-    // Проверяем, достаточно ли средств
-    if (newTotalAmount < amount) {
-      throw new Error("Недостаточно средств на счете");
+    if (currentUser.totalAmount < amount) {
+      throw new Error("Недостаточно средств");
     }
 
-    // Обновляем баланс
-    newTotalAmount -= amount;
+    const newTotalAmount = currentUser.totalAmount - amount;
 
     // Создаем транзакцию вывода
     const transaction = await databases.createDocument(
@@ -170,34 +129,60 @@ export async function withdrawTransaction(amount) {
       config.transactionsId,
       ID.unique(),
       {
-        users: currentUser.$id, // ID пользователя
+        users: currentUser.$id,
         status: "completed",
-        deposit: 0, // Нет депозита
-        withdraw: amount, // Сумма вывода
-        totalAmount: newTotalAmount, // Новый баланс
+        deposit: 0,
+        withdraw: amount,
+        totalAmount: newTotalAmount,
       }
     );
 
-    // Обновляем баланс пользователя в коллекции пользователей
+    // Обновляем баланс
     await databases.updateDocument(
       config.databaseId,
       config.userCollectionId,
       currentUser.$id,
-      {
-        totalAmount: newTotalAmount, // Обновляем только баланс
-      }
+      { totalAmount: newTotalAmount }
     );
 
     return transaction;
   } catch (error) {
     console.error("Ошибка при выводе средств:", error);
-    throw new Error(error.message);
+    throw new Error("Не удалось вывести средства.");
+  }
+}
+
+// --- Обновление профиля ---
+export const updateUserProfile = async (userId, updatedData) => {
+  try {
+    const updatedUser = await databases.updateDocument(
+      config.databaseId,
+      config.userCollectionId,
+      userId,
+      updatedData
+    );
+    return updatedUser;
+  } catch (error) {
+    console.error("Ошибка при обновлении профиля:", error);
+    throw new Error("Не удалось обновить профиль.");
+  }
+};
+
+// --- Вспомогательные функции ---
+export async function ensureSession() {
+  try {
+    const session = await account.get();
+    console.log("Активная сессия:", session);
+    return session;
+  } catch (error) {
+    console.error("Нет активной сессии:", error);
+    throw new Error("Пользователь не аутентифицирован.");
   }
 }
 
 export async function getBalance() {
   try {
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser(); // Получаем текущего пользователя
 
     if (!currentUser) {
       throw new Error("Не удалось получить текущего пользователя");
@@ -231,51 +216,12 @@ export async function getBalance() {
   }
 }
 
-export async function ensureSession() {
+export const getUserProfile = async (userId) => {
   try {
-    await account.getSession("current"); // Проверяем активную сессию
+    const user = await account.get(); // Получаем текущего аутентифицированного пользователя
+    return user; // Возвращаем данные пользователя
   } catch (error) {
-    throw new Error("Пользователь не аутентифицирован");
-  }
-}
-
-// Get current user
-export const getCurrentUser = async () => {
-  try {
-    const currentAccount = await account.get();
-
-    if (!currentAccount) throw new Error("No current account");
-
-    const currentUser = await databases.listDocuments(
-      config.databaseId,
-      config.userCollectionId,
-      [Query.equal("accountId", currentAccount.$id)]
-    );
-
-    if (!currentUser || currentUser.documents.length === 0)
-      throw new Error("No user document found");
-
-    return currentUser.documents[0];
-  } catch (error) {
-    console.log(error.message);
-    return null;
-  }
-};
-
-export const getLatestTransactions = async (userId) => {
-  try {
-    const transactions = await databases.listDocuments(
-      config.databaseId,
-      config.transactionsId,
-      [
-        Query.orderDesc("$createdAt"),
-        Query.equal("users", userId), // Фильтр по ID пользователя
-      ]
-    );
-
-    return transactions.documents || []; // Возвращаем массив транзакций или пустой массив
-  } catch (error) {
-    console.error("Ошибка при получении последних транзакций:", error.message);
+    console.error("Ошибка получения данных пользователя:", error);
     throw error;
   }
 };

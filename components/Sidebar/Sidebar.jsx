@@ -37,7 +37,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <header className="md:hidden fixed mb-12 top-0 left-0 w-full flex items-center justify-between p-4 z-20">
+      <header className="md:hidden fixed mb-12 top-0 left-0 w-full flex items-center justify-between p-4 z-20 bg-white">
         <button
           onClick={() => setOpenBurgerMenu((prev) => !prev)}
           aria-label="Toggle Menu"
@@ -51,6 +51,10 @@ const Sidebar = () => {
         </button>
         <div className="logo">
           <Image src={images.logo2} alt="Logo" width={120} height={30} />
+        </div>
+
+        <div>
+          <Image src={icons.notificationsLogo} alt="Notification" width={24} />
         </div>
       </header>
 

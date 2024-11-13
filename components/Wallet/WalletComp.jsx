@@ -22,7 +22,7 @@ export default function WalletComp() {
   const [actionType, setActionType] = useState("deposit");
 
   const { user } = useGlobalContext();
-  const { addNotification } = useNotificationContext(); // Получаем функцию для добавления уведомлений
+  const { addNotification, notifications } = useNotificationContext(); // Получаем функцию для добавления уведомлений
 
   // Функция для обновления баланса
   const updateBalance = async () => {
@@ -72,13 +72,14 @@ export default function WalletComp() {
       console.error("Ошибка вывода средств:", error);
     }
   };
+
   return (
-    <div className="container pt-[33px]">
-      <h1 className="text-customOrange text-[26px] font-bold mb-5">
+    <div className="container pt-[33px] mb-[230px] md:mb-0">
+      <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
         Денежные средства
       </h1>
 
-      <div className="wallet_card_cont flex justify-between mb-5">
+      <div className="wallet_card_cont flex flex-wrap justify-center gap-3 md:flex-nowrap md:justify-between md:gap-0 mb-5">
         <WalletCard
           icon={icons.icon1}
           title="Мой процент инвестиций"
@@ -96,7 +97,7 @@ export default function WalletComp() {
         />
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-center flex-wrap md:flex-nowrap md:justify-between gap-3">
         <div className="flex items-center gap-4">
           <div className="bg-customOrange rounded-full p-2">
             <Image src={icons.icon1} width={24} alt="Icon" />

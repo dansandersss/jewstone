@@ -21,7 +21,9 @@ export const NotificationProvider = ({ children }) => {
   };
 
   return (
-    <NotificationContext.Provider value={{ notifications, addNotification }}>
+    <NotificationContext.Provider
+      value={{ notifications, addNotification, setNotifications }}
+    >
       {children}
     </NotificationContext.Provider>
   );

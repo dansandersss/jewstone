@@ -19,8 +19,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <body className={`${roboto.className} bg-white text-black`}>
-        <GlobalProvider>
-          <NotificationProvider>
+        <NotificationProvider>
+          <GlobalProvider>
             <div className="flex flex-col min-h-screen">
               <div className="flex flex-1">
                 <Sidebar />
@@ -28,8 +28,8 @@ export default function RootLayout({ children }) {
               </div>
               <Footer />
             </div>
-          </NotificationProvider>
-        </GlobalProvider>
+          </GlobalProvider>
+        </NotificationProvider>
       </body>
     </html>
   );

@@ -1,12 +1,14 @@
 "use client";
 import icons from "@/constants/icons";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import { useNotificationContext } from "@/context/NotificationProvider";
 import { getLatestTransactions } from "@/utils/appwrite";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function Notifications() {
-  const [notifications, setNotifications] = useState([]);
+  // const [notifications, setNotifications] = useState([]);
+  const { notifications, setNotifications } = useNotificationContext();
   const [showNotifications, setShowNotifications] = useState(false); // Состояние для отображения уведомлений
   const [isLoaded, setIsLoaded] = useState(false); // Отслеживает, загружены ли уведомления
   const { user } = useGlobalContext();
@@ -57,7 +59,7 @@ export default function Notifications() {
   return (
     <>
       <div className="container py-[17px] border-b">
-        <div className="flex gap-2 items-center justify-end">
+        <div className=" gap-2 items-center justify-end hidden md:flex">
           <p className="text-customGray opacity-75 text-sm">Уведомления</p>
           <div className="relative">
             <div className="cursor-pointer" onClick={handleGetNotifications}>
