@@ -9,6 +9,7 @@ export default function ProfileInfo() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -21,6 +22,7 @@ export default function ProfileInfo() {
         setName(userProfile.name); // Устанавливаем актуальные данные
         setLastName(userProfile.last_name || userProfile.lastName);
         setEmail(userProfile.email);
+        setUsername(userProfile.username);
       }
     } catch (error) {
       console.error("Ошибка при загрузке данных профиля:", error);
@@ -45,6 +47,7 @@ export default function ProfileInfo() {
         name,
         last_name: lastName,
         email,
+        username,
       };
 
       // Обновляем информацию профиля в базе данных
@@ -59,6 +62,7 @@ export default function ProfileInfo() {
       setName(updatedUser.name);
       setLastName(updatedUser.last_name || updatedUser.lastName);
       setEmail(updatedUser.email);
+      setUsername(updatedUser.username);
 
       // Обновляем данные в контексте
       setUser(updatedUser);
@@ -74,51 +78,67 @@ export default function ProfileInfo() {
   };
 
   return (
-    <div className="container">
-      <div className="flex">
-        <input
-          type="text"
-          value={name} // Передаем актуальные данные из состояния
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          value={lastName} // Передаем актуальные данные из состояния
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          className="w-full"
-          value={email} // Передаем актуальные данные из состояния
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="password"
-          placeholder="Старый пароль"
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Новый пароль"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="password"
-          placeholder="Подтвердите новый пароль"
-          value={confirmNewPassword}
-          onChange={(e) => setConfirmNewPassword(e.target.value)}
-        />
-        <button className="bg-customGray" onClick={handleSaveChanges}>
-          Сохранить изменения
-        </button>
+    <div>
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center gap-3">
+          <input
+            className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
+            type="text"
+            value={lastName} // Передаем актуальные данные из состояния
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          <input
+            type="text"
+            className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
+            value={username} // Передаем актуальные данные из состояния
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="text"
+            className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
+            value={email} // Передаем актуальные данные из состояния
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          <input
+            className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
+            type="password"
+            placeholder="Старый пароль"
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+          />
+          <input
+            className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
+            type="password"
+            placeholder="Новый пароль"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          <input
+            className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
+            type="password"
+            placeholder="Подтвердите новый пароль"
+            value={confirmNewPassword}
+            onChange={(e) => setConfirmNewPassword(e.target.value)}
+          />
+          <button
+            className="bg-customGray py-[23px] pl-[20px] rounded-[10px] text-white w-[389px] hover:-translate-y-1 transition ease-in duration-150"
+            onClick={handleSaveChanges}
+          >
+            Сохранить изменения
+          </button>
+        </div>
       </div>
     </div>
   );

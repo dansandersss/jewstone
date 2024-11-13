@@ -74,7 +74,7 @@ export default function WalletComp() {
   };
 
   return (
-    <div className="container pt-[33px] mb-[230px] md:mb-0">
+    <div className="container mb-[230px] md:mb-0">
       <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
         Денежные средства
       </h1>

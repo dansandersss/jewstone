@@ -8,12 +8,12 @@ export default function ProfileComp() {
   console.log(user?.avatar);
   return (
     <>
-      <div className="container">
+      <div className="container mb-[230px] md:mb-0">
         <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
           Личные данные
         </h1>
 
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-center gap-6 rounded-[10px] border p-5">
           <div>
             <div>
               <Image
