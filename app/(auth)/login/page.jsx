@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "@/utils/appwrite"; // Импортируем функцию signIn
-import { useRouter } from "next/navigation"; // Для перенаправления
+import { signIn } from "@/utils/appwrite";
+import { useRouter } from "next/navigation";
 import images from "@/constants/images";
 import Image from "next/image";
 

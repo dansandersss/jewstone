@@ -12,7 +12,7 @@ import icons from "@/constants/icons";
 
 const Sidebar = () => {
   const [showProfileLinks, setShowProfileLinks] = useState(false);
-  const [openBurgerMenu, setOpenBurgerMenu] = useState(false); // Контролирует открытие бургер-меню
+  const [openBurgerMenu, setOpenBurgerMenu] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -58,7 +58,6 @@ const Sidebar = () => {
         </div>
       </header>
 
-      {/* Sidebar для desktop */}
       <div className={`container w-[300px] md:block hidden`}>
         <div className="sidebar h-screen bg-customGray px-[20px] pt-[25px]">
           <div className="logo mb-[21px]">
@@ -66,7 +65,6 @@ const Sidebar = () => {
           </div>
           <div className="sidebar_links">
             <ul className="nav_block text-gray-200 text-[14px]">
-              {/* Профиль с раскрывающимся меню */}
               {links.map((link, index) => {
                 if (link.text === "Профиль") {
                   return (
@@ -90,7 +88,6 @@ const Sidebar = () => {
                 return null;
               })}
 
-              {/* Вложенные ссылки профиля */}
               <div
                 className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
                   showProfileLinks ? "max-h-[200px]" : "max-h-0"
@@ -129,7 +126,6 @@ const Sidebar = () => {
                 })}
               </div>
 
-              {/* Обработка остальных ссылок */}
               {links.map((link, index) => {
                 if (
                   ![
@@ -164,9 +160,8 @@ const Sidebar = () => {
                 return null;
               })}
 
-              {/* Кнопка "Выйти из профиля" */}
               <li
-                className="nav_link flex items-center gap-3 px-[20px] py-[17px] rounded-[10px] hover:bg-customOrange"
+                className="nav_link flex items-center cursor-pointer gap-3 px-[20px] py-[17px] rounded-[10px] hover:bg-customOrange"
                 onClick={handleSignOut}
               >
                 <Image
@@ -184,17 +179,17 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Мобильное меню (бургер-меню) */}
       {openBurgerMenu && (
         <div className="fixed top-12 left-0 w-full h-full bg-customGray z-40 shadow-lg">
-          {/* <div className="p-4">
-            <Image src={images.logo} alt="Logo" width={150} height={40} />
-          </div> */}
           <ul className="nav_block text-gray-200 text-2xl h-[calc(100%-225px)] flex flex-col items-center justify-center">
             {links.map((link, index) => (
               <li
                 key={index}
-                className="nav_link px-[20px] py-[10px] cursor-pointer hover:bg-customOrange transition-all"
+                className={`nav_link px-[20px] py-[10px] cursor-pointer hover:bg-customOrange transition-all ${
+                  pathname === link.forward
+                    ? "bg-customOrange rounded-[10px] text-white"
+                    : ""
+                }`}
                 onClick={() => setOpenBurgerMenu(false)}
               >
                 <Link href={link.forward}>

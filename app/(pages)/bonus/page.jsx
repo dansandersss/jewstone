@@ -1,7 +1,11 @@
+import BonusComp from "@/components/Bonuses/BonusComp";
+import Notifications from "@/components/Notifications/Notifications";
+
 export default function Bonus() {
   return (
     <>
-      <div>Bonus</div>
+      <Notifications />
+      <BonusComp />
     </>
   );
 }

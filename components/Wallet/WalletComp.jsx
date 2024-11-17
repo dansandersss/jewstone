@@ -12,7 +12,7 @@ import {
 } from "@/utils/appwrite";
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
-import { useNotificationContext } from "@/context/NotificationProvider"; // Импортируем контекст уведомлений
+import { useNotificationContext } from "@/context/NotificationProvider";
 
 export default function WalletComp() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,11 +20,11 @@ export default function WalletComp() {
   const [totalDeposited, setTotalDeposited] = useState(0);
   const [totalWithdrawned, setTotalWithdrawned] = useState(0);
   const [actionType, setActionType] = useState("deposit");
+  const [isClient, setIsClient] = useState(false);
 
   const { user } = useGlobalContext();
-  const { addNotification, notifications } = useNotificationContext(); // Получаем функцию для добавления уведомлений
+  const { addNotification, notifications } = useNotificationContext();
 
-  // Функция для обновления баланса
   const updateBalance = async () => {
     try {
       const updatedBalance = await getBalance();
@@ -37,8 +37,15 @@ export default function WalletComp() {
   };
 
   useEffect(() => {
-    updateBalance();
+    // Этот код гарантирует, что компоненты рендерятся только на клиенте
+    setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      updateBalance();
+    }
+  }, [isClient]);
 
   const handleDeposit = async (amount) => {
     try {
@@ -46,7 +53,6 @@ export default function WalletComp() {
       const transaction = await createTransaction(amount, user?.$id);
       await updateBalance();
 
-      // Добавляем уведомление о пополнении
       addNotification({
         message: `Пополнение на ${amount} ₽ успешно, транзакция №${transaction.$id}`,
       });
@@ -62,7 +68,6 @@ export default function WalletComp() {
       const transaction = await withdrawTransaction(amount);
       await updateBalance();
 
-      // Добавляем уведомление о выводе
       addNotification({
         message: `Вывод на ${amount} ₽ успешно завершен, транзакция №${transaction.$id}`,
       });
@@ -73,13 +78,17 @@ export default function WalletComp() {
     }
   };
 
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <div className="container mb-[230px] md:mb-0">
       <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
         Денежные средства
       </h1>
 
-      <div className="wallet_card_cont flex flex-wrap justify-center gap-3 md:flex-nowrap md:justify-between md:gap-0 mb-5">
+      <div className="wallet_card_cont flex flex-wrap justify-center gap-5 md:flex-nowrap md:justify-between mb-5">
         <WalletCard
           icon={icons.icon1}
           title="Мой процент инвестиций"
@@ -108,7 +117,7 @@ export default function WalletComp() {
         <div className="flex items-center gap-2">
           <CustomButton
             text="Вывести"
-            customClass="bg-customGray"
+            customClass="bg-customGray text-white"
             onClick={() => {
               setActionType("withdraw");
               setIsModalOpen(true);

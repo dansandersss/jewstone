@@ -2,16 +2,20 @@
 import icons from "@/constants/icons";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { useNotificationContext } from "@/context/NotificationProvider";
-import { getLatestTransactions } from "@/utils/appwrite";
+
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function Notifications() {
-  // const [notifications, setNotifications] = useState([]);
   const { notifications, setNotifications } = useNotificationContext();
-  const [showNotifications, setShowNotifications] = useState(false); // Состояние для отображения уведомлений
-  const [isLoaded, setIsLoaded] = useState(false); // Отслеживает, загружены ли уведомления
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const { user } = useGlobalContext();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const convertToRandom9Digits = () => {
     return Math.floor(100000000 + Math.random() * 900000000).toString();
@@ -22,7 +26,6 @@ export default function Notifications() {
       const allNotifications = await getLatestTransactions(user.$id);
       const latestNotifications = allNotifications.slice(0, 5);
 
-      // Преобразуем ID в 9-значные числа
       const formattedNotifications = latestNotifications.map(
         (notification) => ({
           ...notification,
@@ -31,7 +34,7 @@ export default function Notifications() {
       );
 
       setNotifications(formattedNotifications);
-      setIsLoaded(true); // Помечаем, что уведомления загружены
+      setIsLoaded(true);
     } catch (error) {
       console.error("Ошибка при получении уведомлений:", error.message);
     }
@@ -39,9 +42,9 @@ export default function Notifications() {
 
   const handleGetNotifications = async () => {
     if (!isLoaded) {
-      await fetchNotifications(); // Загружаем уведомления только один раз
+      await fetchNotifications();
     }
-    setShowNotifications((prev) => !prev); // Переключаем отображение панели
+    setShowNotifications((prev) => !prev);
   };
 
   const handleRemoveNotification = (randomId) => {
@@ -50,11 +53,14 @@ export default function Notifications() {
     );
     setNotifications(updatedNotifications);
 
-    // Скрываем красный круг, если уведомлений нет
     if (updatedNotifications.length === 0) {
       setShowNotifications(false);
     }
   };
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <>
@@ -83,7 +89,6 @@ export default function Notifications() {
         </div>
       </div>
 
-      {/* Блок уведомлений */}
       {showNotifications && (
         <div className="absolute right-4 top-[70px] bg-white border shadow-lg rounded-md p-4 w-80 z-50">
           <h3 className="text-lg font-semibold mb-2">Последние транзакции</h3>

@@ -17,7 +17,6 @@ export const config = {
   transactionsId: "67324ddf000157b3c31a",
 };
 
-// Инициализация клиента Appwrite
 const client = new Client();
 client.setEndpoint(config.endpoint).setProject(config.projectId);
 
@@ -26,7 +25,6 @@ const avatars = new Avatars(client);
 const databases = new Databases(client);
 const storage = new Storage(client);
 
-// --- Утилиты для работы с пользователем ---
 export const getCurrentUser = async () => {
   try {
     const currentAccount = await account.get();
@@ -43,14 +41,54 @@ export const getCurrentUser = async () => {
     return currentUser.documents[0];
   } catch (error) {
     console.error("Ошибка при получении текущего пользователя:", error);
-    return null; // Явно возвращаем null
+    return null;
   }
 };
 
-// --- Аутентификация ---
+export async function createUser(email, password, username) {
+  try {
+    const newAccount = await account.create(
+      ID.unique(),
+      email,
+      password,
+      username
+    );
+    if (!newAccount) throw new Error("Error creating account");
+
+    const avatarUrl = avatars.getInitials(username);
+
+    await signIn(email, password);
+
+    const newUser = await databases.createDocument(
+      config.databaseId,
+      config.userCollectionId,
+      ID.unique(),
+      {
+        accountId: newAccount.$id,
+        email,
+        username,
+        avatar: avatarUrl,
+      }
+    );
+    return newUser;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+}
+
+export async function checkAuth() {
+  try {
+    await account.get();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function signIn(email, password) {
   try {
-    const session = await account.createEmailPasswordSession(email, password); // Новый метод для создания сессии
+    const session = await account.createEmailPasswordSession(email, password);
     console.log("Успешный вход, сессия создана:", session);
     return session;
   } catch (error) {
@@ -69,7 +107,10 @@ export async function signOut() {
   }
 }
 
-// --- Транзакции ---
+const generateRandomId = () => {
+  return Math.floor(100000000 + Math.random() * 900000000);
+};
+
 export async function createTransaction(amount, userId) {
   try {
     const currentUser = await getCurrentUser();
@@ -80,7 +121,6 @@ export async function createTransaction(amount, userId) {
 
     const newTotalAmount = (currentUser.totalAmount || 0) + amount;
 
-    // Создаем транзакцию
     const transaction = await databases.createDocument(
       config.databaseId,
       config.transactionsId,
@@ -91,10 +131,10 @@ export async function createTransaction(amount, userId) {
         deposit: amount,
         withdraw: 0,
         totalAmount: newTotalAmount,
+        fakeId: parseInt(generateRandomId(), 10),
       }
     );
 
-    // Обновляем баланс пользователя
     await databases.updateDocument(
       config.databaseId,
       config.userCollectionId,
@@ -123,7 +163,6 @@ export async function withdrawTransaction(amount) {
 
     const newTotalAmount = currentUser.totalAmount - amount;
 
-    // Создаем транзакцию вывода
     const transaction = await databases.createDocument(
       config.databaseId,
       config.transactionsId,
@@ -134,10 +173,10 @@ export async function withdrawTransaction(amount) {
         deposit: 0,
         withdraw: amount,
         totalAmount: newTotalAmount,
+        fakeId: parseInt(generateRandomId(), 10),
       }
     );
 
-    // Обновляем баланс
     await databases.updateDocument(
       config.databaseId,
       config.userCollectionId,
@@ -152,7 +191,6 @@ export async function withdrawTransaction(amount) {
   }
 }
 
-// --- Обновление профиля ---
 export const updateUserProfile = async (userId, updatedData) => {
   try {
     const updatedUser = await databases.updateDocument(
@@ -161,6 +199,7 @@ export const updateUserProfile = async (userId, updatedData) => {
       userId,
       updatedData
     );
+    console.log("Профиль пользователя обновлен:", updatedUser);
     return updatedUser;
   } catch (error) {
     console.error("Ошибка при обновлении профиля:", error);
@@ -168,7 +207,6 @@ export const updateUserProfile = async (userId, updatedData) => {
   }
 };
 
-// --- Вспомогательные функции ---
 export async function ensureSession() {
   try {
     const session = await account.get();
@@ -182,7 +220,7 @@ export async function ensureSession() {
 
 export async function getBalance() {
   try {
-    const currentUser = await getCurrentUser(); // Получаем текущего пользователя
+    const currentUser = await getCurrentUser();
 
     if (!currentUser) {
       throw new Error("Не удалось получить текущего пользователя");
@@ -218,10 +256,71 @@ export async function getBalance() {
 
 export const getUserProfile = async (userId) => {
   try {
-    const user = await account.get(); // Получаем текущего аутентифицированного пользователя
-    return user; // Возвращаем данные пользователя
+    const user = await account.get();
+    return user;
   } catch (error) {
     console.error("Ошибка получения данных пользователя:", error);
     throw error;
+  }
+};
+
+export const getUserTransactions = async () => {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser) {
+      throw new Error("Пользователь не аутентифицирован");
+    }
+
+    // Получаем все транзакции без сортировки
+    const transactions = await databases.listDocuments(
+      config.databaseId,
+      config.transactionsId,
+      [Query.equal("users", currentUser.$id)]
+    );
+
+    // Сортируем транзакции по полю $createdAt по убыванию
+    const sortedTransactions = transactions.documents
+      .filter((transaction) => transaction.withdraw > 0)
+      .sort((a, b) => new Date(b.$createdAt) - new Date(a.$createdAt)); // Сортировка по убыванию
+
+    return sortedTransactions;
+  } catch (error) {
+    console.error("Ошибка при получении транзакций пользователя:", error);
+    throw new Error("Не удалось получить транзакции.");
+  }
+};
+
+export const updatePassword = async (oldPassword, newPassword) => {
+  try {
+    const session = await account.get();
+    if (!session) {
+      throw new Error("Пользователь не аутентифицирован");
+    }
+    await account.updatePassword(oldPassword, newPassword);
+    console.log("Пароль успешно обновлен");
+  } catch (error) {
+    console.error("Ошибка при обновлении пароля:", error);
+    throw new Error(
+      "Не удалось обновить пароль. Проверьте старый пароль и повторите попытку."
+    );
+  }
+};
+
+export const uploadAvatar = async (file) => {
+  try {
+    const uploadedFile = await storage.createFile(
+      config.storageId,
+      ID.unique(),
+      file
+    );
+
+    const avatarUrl = storage.getFileView(config.storageId, uploadedFile.$id);
+
+    console.log("URL аватара:", avatarUrl);
+    return avatarUrl;
+  } catch (error) {
+    console.error("Ошибка при загрузке аватара:", error);
+    throw new Error("Ошибка при загрузке аватара");
   }
 };

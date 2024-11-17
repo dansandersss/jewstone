@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
-import { updateUserProfile, getUserProfile } from "@/utils/appwrite";
+import {
+  updateUserProfile,
+  getUserProfile,
+  getCurrentUser,
+  updatePassword,
+} from "@/utils/appwrite";
 
 export default function ProfileInfo() {
   const { user, setUser } = useGlobalContext();
@@ -13,36 +18,39 @@ export default function ProfileInfo() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [isClient, setIsClient] = useState(false);
 
-  // Функция для загрузки профиля пользователя
   const fetchUserProfile = async () => {
     try {
-      const userProfile = await getUserProfile(user?.$id);
+      const userProfile = await getCurrentUser(user?.$id);
       if (userProfile) {
-        setName(userProfile.name); // Устанавливаем актуальные данные
+        setName(userProfile.name);
         setLastName(userProfile.last_name || userProfile.lastName);
         setEmail(userProfile.email);
         setUsername(userProfile.username);
       }
+      console.log(userProfile.name);
     } catch (error) {
       console.error("Ошибка при загрузке данных профиля:", error);
     }
   };
 
   useEffect(() => {
-    if (user?.$id) {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient && user?.$id) {
       fetchUserProfile();
     }
-  }, [user]); // Загружаем данные при изменении user
+  }, [isClient, user]);
 
   const handleSaveChanges = async () => {
     try {
-      // Проверка совпадения паролей
       if (newPassword && newPassword !== confirmNewPassword) {
         throw new Error("Пароли не совпадают");
       }
 
-      // Обновляем данные пользователя (имя, фамилию, email)
       const updatedData = {
         name,
         last_name: lastName,
@@ -50,24 +58,19 @@ export default function ProfileInfo() {
         username,
       };
 
-      // Обновляем информацию профиля в базе данных
       const updatedUser = await updateUserProfile(user.$id, updatedData);
 
-      // Если был введен новый пароль, обновляем его
       if (newPassword) {
         await updatePassword(oldPassword, newPassword);
       }
 
-      // Обновляем локальные значения состояния с актуальными данными
       setName(updatedUser.name);
       setLastName(updatedUser.last_name || updatedUser.lastName);
       setEmail(updatedUser.email);
       setUsername(updatedUser.username);
 
-      // Обновляем данные в контексте
       setUser(updatedUser);
 
-      // После обновления, заново загружаем данные профиля с сервера
       fetchUserProfile();
 
       alert("Данные успешно обновлены!");
@@ -77,10 +80,14 @@ export default function ProfileInfo() {
     }
   };
 
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <div>
       <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row items-center gap-3">
           <input
             className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
             type="text"
@@ -90,25 +97,25 @@ export default function ProfileInfo() {
           <input
             className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
             type="text"
-            value={lastName} // Передаем актуальные данные из состояния
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row items-center gap-3">
           <input
             type="text"
             className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
-            value={username} // Передаем актуальные данные из состояния
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
             type="text"
             className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
-            value={email} // Передаем актуальные данные из состояния
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row items-center gap-3">
           <input
             className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
             type="password"
@@ -124,7 +131,7 @@ export default function ProfileInfo() {
             onChange={(e) => setNewPassword(e.target.value)}
           />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row items-center gap-3">
           <input
             className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
             type="password"

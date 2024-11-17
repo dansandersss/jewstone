@@ -10,7 +10,6 @@ export const NotificationProvider = ({ children }) => {
     const id = Math.random().toString(36).substr(2, 9);
     setNotifications((prev) => [...prev, { ...notification, id }]);
 
-    // Удаляем уведомление через 5 секунд
     setTimeout(() => {
       removeNotification(id);
     }, 5000);

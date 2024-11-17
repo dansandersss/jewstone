@@ -1,7 +1,11 @@
+import HistoryComp from "@/components/HistoryComp/HistoryComp";
+import Notifications from "@/components/Notifications/Notifications";
+
 export default function History() {
   return (
     <>
-      <div>History</div>
+      <Notifications />
+      <HistoryComp />
     </>
   );
 }

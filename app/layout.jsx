@@ -1,10 +1,10 @@
-import { Montserrat } from "next/font/google"; // Импортируем шрифт Montserrat
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 const montserrat = Montserrat({
-  weight: ["400", "500", "700"], // Указываем нужные веса
-  subsets: ["latin"], // Указываем нужный набор символов
-  display: "swap", // Для оптимизации загрузки шрифта
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {

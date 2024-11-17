@@ -8,7 +8,7 @@ export default function Modal({ title, onClose, onSubmit, actionType }) {
       alert("Введите корректную сумму!");
       return;
     }
-    onSubmit(Number(amount)); // Отправляем значение суммы в onSubmit
+    onSubmit(Number(amount));
   };
 
   return (

@@ -9,10 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@date-io/date-fns": "^3.0.0",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.7",
+    "@mui/lab": "^6.0.0-beta.15",
+    "@mui/material": "^6.1.7",
+    "@mui/x-date-pickers": "^7.22.2",
+    "@mui/x-date-pickers-pro": "^7.22.2",
     "appwrite": "^16.0.2",
+    "dayjs": "^1.11.13",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-dropzone": "^14.3.5",
     "react-file-uploader": "^1.0.0"
   },
   "devDependencies": {
