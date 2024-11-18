@@ -16,6 +16,7 @@ export default function Footer() {
           <div className="socials flex gap-2 items-center">
             {socialLinks.map((socialLink) => (
               <Link
+                key={socialLink.icon}
                 href={socialLink.forward}
                 className="hover:scale-125 scale-100 transition-all ease-in duration-150"
               >
