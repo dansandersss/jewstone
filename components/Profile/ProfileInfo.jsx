@@ -92,12 +92,14 @@ export default function ProfileInfo() {
             className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
             type="text"
             value={name}
+            placeholder="Имя"
             onChange={(e) => setName(e.target.value)}
           />
           <input
             className="rounded-[10px] w-[389px] py-[23px] pl-[20px] bg-customWhite"
             type="text"
             value={lastName}
+            placeholder="Фамилия"
             onChange={(e) => setLastName(e.target.value)}
           />
         </div>
