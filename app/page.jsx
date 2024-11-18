@@ -13,7 +13,7 @@ export default function Main() {
       try {
         const isAuthenticated = await checkAuth();
         if (isAuthenticated) {
-          router.push("/home/walle");
+          router.push("/home/wallet");
         } else {
           router.push("/register");
         }
