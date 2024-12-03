@@ -37,7 +37,6 @@ export default function WalletComp() {
   };
 
   useEffect(() => {
-    // Этот код гарантирует, что компоненты рендерятся только на клиенте
     setIsClient(true);
   }, []);
 
@@ -83,67 +82,69 @@ export default function WalletComp() {
   }
 
   return (
-    <div className="container mb-[230px] md:mb-0">
-      <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
-        Денежные средства
-      </h1>
+    <div className="container mb-[230px] md:mb-0 w-full h-full xl:h-[calc(100%-200px)]">
+      <div className="xl:flex block xl:flex-col xl:justify-center justify-normal">
+        <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
+          Денежные средства
+        </h1>
 
-      <div className="wallet_card_cont flex flex-wrap justify-center gap-5 md:flex-nowrap md:justify-between mb-5">
-        <WalletCard
-          icon={icons.icon1}
-          title="Мой процент инвестиций"
-          percent="10%"
-        />
-        <WalletCard
-          icon={icons.icon2}
-          title="Суммарно выплачено"
-          withdrawed={totalWithdrawned || "0"}
-        />
-        <WalletCard
-          icon={icons.icon3}
-          title="Суммарно вложено"
-          deposited={totalDeposited}
-        />
-      </div>
+        <div className="wallet_card_cont flex flex-wrap justify-center gap-5 md:flex-nowrap md:gap-5 mb-5">
+          <WalletCard
+            icon={icons.icon1}
+            title="Мой процент инвестиций"
+            percent="10%"
+          />
+          <WalletCard
+            icon={icons.icon2}
+            title="Суммарно выплачено"
+            withdrawed={totalWithdrawned || "0"}
+          />
+          <WalletCard
+            icon={icons.icon3}
+            title="Суммарно вложено"
+            deposited={totalDeposited}
+          />
+        </div>
 
-      <div className="flex items-center justify-center flex-wrap md:flex-nowrap md:justify-between gap-3">
-        <div className="flex items-center gap-4">
-          <div className="bg-customOrange rounded-full p-2">
-            <Image src={icons.icon1} width={24} alt="Icon" />
+        <div className="flex items-center justify-center flex-wrap md:flex-nowrap md:justify-between gap-3 border rounded-[10px] p-5">
+          <div className="flex items-center gap-4">
+            <div className="bg-customOrange rounded-full p-2">
+              <Image src={icons.icon1} width={24} alt="Icon" />
+            </div>
+            <h3>На счету</h3>
           </div>
-          <h3>На счету</h3>
+          <p className="font-bold text-[26px]">{balance} ₽</p>
+          <div className="flex items-center gap-2">
+            <CustomButton
+              text="Вывести"
+              customClass="bg-customGray text-white"
+              onClick={() => {
+                setActionType("withdraw");
+                setIsModalOpen(true);
+              }}
+            />
+            <CustomButton
+              text="Пополнить"
+              customClass="bg-customOrange text-white"
+              onClick={() => {
+                setActionType("deposit");
+                setIsModalOpen(true);
+              }}
+            />
+          </div>
         </div>
-        <p>{balance} ₽</p>
-        <div className="flex items-center gap-2">
-          <CustomButton
-            text="Вывести"
-            customClass="bg-customGray text-white"
-            onClick={() => {
-              setActionType("withdraw");
-              setIsModalOpen(true);
-            }}
-          />
-          <CustomButton
-            text="Пополнить"
-            customClass="bg-customOrange"
-            onClick={() => {
-              setActionType("deposit");
-              setIsModalOpen(true);
-            }}
-          />
-        </div>
-      </div>
 
-      {isModalOpen && (
-        <Modal
-          title={
-            actionType === "deposit" ? "Пополнить счет" : "Вывести средства"
-          }
-          onClose={() => setIsModalOpen(false)}
-          onSubmit={actionType === "deposit" ? handleDeposit : handleWithdraw}
-          actionType={actionType}
-        />
-      )}
+        {isModalOpen && (
+          <Modal
+            title={
+              actionType === "deposit" ? "Пополнить счет" : "Вывести средства"
+            }
+            onClose={() => setIsModalOpen(false)}
+            onSubmit={actionType === "deposit" ? handleDeposit : handleWithdraw}
+            actionType={actionType}
+          />
+        )}
+      </div>
     </div>
   );
 }

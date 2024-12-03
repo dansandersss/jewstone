@@ -324,3 +324,16 @@ export const uploadAvatar = async (file) => {
     throw new Error("Ошибка при загрузке аватара");
   }
 };
+
+export async function createPasswordRecovery(email) {
+  try {
+    const response = await account.createRecovery(
+      email,
+      `${window.location.origin}/reset-password`
+    );
+    console.log("Recovery email sent:", response);
+  } catch (error) {
+    console.error("Error sending recovery email:", error);
+    throw new Error("Не удалось отправить письмо для восстановления пароля.");
+  }
+}

@@ -10,7 +10,7 @@ export default function BonusComp() {
           Бонусы
         </h1>
 
-        <div className="flex flex-wrap md:flex-nowrap gap-5 justify-center md:justify-between items-center">
+        <div className="flex flex-wrap md:flex-nowrap gap-7 justify-center items-center">
           {bonuses.map((bonus, index) => (
             <div
               key={index}
@@ -37,10 +37,12 @@ export default function BonusComp() {
           ))}
         </div>
 
-        <CustomButton
-          text="Связаться с владельцем"
-          customClass="bg-customGray text-white w-full mt-5"
-        />
+        <div className="w-full flex justify-center items-center">
+          <CustomButton
+            text="Связаться с владельцем"
+            customClass="bg-customGray text-white w-full xl:w-[1097px] mt-5"
+          />
+        </div>
       </div>
     </>
   );

@@ -19,7 +19,8 @@ export default function WalletCard({
         <p className="text-[26px]">
           {(percent && percent) ||
             (withdrawed && withdrawed) ||
-            (deposited && deposited)}
+            (deposited && deposited)}{" "}
+          {title === "Мой процент инвестиций" ? "" : "₽"}
         </p>
       </div>
     </>

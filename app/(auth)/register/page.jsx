@@ -12,6 +12,7 @@ const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
   const router = useRouter();
 
   const handleRegister = async (e) => {
@@ -33,7 +34,7 @@ const RegisterPage = () => {
 
   return (
     <div className="container bg-white flex md:justify-normal justify-center flex-col my-0 mx-auto w-full h-screen">
-      <div className="flex flex-col items-center md:justify-normal justify-center">
+      <div className="flex flex-col items-center justify-center w-full h-screen">
         <Image
           className="bg-white mt-5 mb-[100px]"
           src={images.logo2}
@@ -81,21 +82,30 @@ const RegisterPage = () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="mb-4 relative">
                 <label
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Пароль
                 </label>
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-800"
-                />
+                <div className="div">
+                  <input
+                    id="password"
+                    type={passwordVisible ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-800"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setPasswordVisible((prev) => !prev)}
+                    className="absolute right-3 top-8 text-gray-600"
+                  >
+                    {passwordVisible ? "Скрыть" : "Показать"}
+                  </button>
+                </div>
               </div>
 
               {error && <p className="text-sm text-red-500 mb-4">{error}</p>}

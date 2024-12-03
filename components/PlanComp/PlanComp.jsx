@@ -14,11 +14,10 @@ export default function PlanComp() {
   const [error, setError] = useState("");
 
   const handleDateChange = (newStart, newEnd) => {
-    // Проверка, чтобы конец периода не был раньше начала
     if (newStart && newEnd && dayjs(newEnd).isBefore(dayjs(newStart))) {
       setError("Конец периода не может быть раньше начала.");
     } else {
-      setError(""); // Очистка ошибки
+      setError("");
       setStartDate(newStart);
       setEndDate(newEnd);
     }
@@ -42,7 +41,7 @@ export default function PlanComp() {
     <>
       <div className="container mb-[230px] md:mb-0">
         <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
-          План Инвестиций
+          План инвестиций
         </h1>
 
         <div className="flex items-center gap-5 flex-wrap md:flex-nowrap">

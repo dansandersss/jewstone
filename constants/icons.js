@@ -6,6 +6,8 @@ import planIcon from "../public/assets/icons/plan.png";
 import profileIcon from "../public/assets/icons/profile.png";
 import statsIcon from "../public/assets/icons/stats.png";
 import walletIcon from "../public/assets/icons/wallet.png";
+import closeIcon from "../public/assets/icons/close.svg";
+import arrowBackIcon from "../public/assets/icons/arrow_back.png";
 
 import tgIcon from "../public/assets/icons/tg.png";
 import vkIcon from "../public/assets/icons/vk.png";
@@ -18,6 +20,14 @@ import menuIcon from "../public/assets/icons/menu.png";
 import icon1 from "../public/assets/icons/icon1.png";
 import icon2 from "../public/assets/icons/icon2.png";
 import icon3 from "../public/assets/icons/icon3.png";
+
+import starsIcon from "../public/assets/icons/starsIcon.png";
+
+import upIcon from "@/public/assets/icons/up.png";
+
+import line1 from "@/public/assets/icons/line1.png";
+import line2 from "@/public/assets/icons/line2.png";
+import line3 from "@/public/assets/icons/line3.png";
 
 export default {
   bonusIcon,
@@ -37,4 +47,11 @@ export default {
   icon3,
   notificationsLogo,
   redLogo,
+  closeIcon,
+  arrowBackIcon,
+  starsIcon,
+  upIcon,
+  line1,
+  line2,
+  line3,
 };

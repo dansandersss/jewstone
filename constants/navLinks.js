@@ -41,6 +41,11 @@ export const links = [
     text: "Выйти из профиля",
     forward: "./",
   },
+  {
+    icon: icons.arrowBackIcon,
+    text: "На главную",
+    forward: "./",
+  },
 ];
 
 export const socialLinks = [

@@ -7,6 +7,7 @@ export default function StatsComp() {
   const handleClassChange = () => {
     setCustomClass("bg-customOrange");
   };
+  const [totalDeposited, setTotalDeposited] = useState(0);
   return (
     <>
       <div className="container  mb-[230px] md:mb-0">
@@ -34,8 +35,8 @@ export default function StatsComp() {
           <div className="pt-5">
             <div className="flex justify-between items-center">
               <div className="flex items-center">
-                <p>Депозит:</p>
-                <p>Баланс</p>
+                <p>Депозит: </p>
+                <p> {totalDeposited}</p>
               </div>
               <div className="flex items-center gap-2">
                 <div className="circle w-[7px] h-[7px] bg-customOrange rounded-full"></div>

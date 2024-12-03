@@ -58,6 +58,10 @@ export default function Notifications() {
     }
   };
 
+  const handleCloseNotifications = () => {
+    setShowNotifications(false);
+  };
+
   if (!isClient) {
     return null;
   }
@@ -91,7 +95,20 @@ export default function Notifications() {
 
       {showNotifications && (
         <div className="absolute right-4 top-[70px] bg-white border shadow-lg rounded-md p-4 w-80 z-50">
-          <h3 className="text-lg font-semibold mb-2">Последние транзакции</h3>
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="text-lg font-semibold">Последние транзакции</h3>
+            <button
+              onClick={handleCloseNotifications}
+              aria-label="Close Notifications"
+            >
+              <Image
+                src={icons.closeIcon} // Убедитесь, что у вас есть иконка для креста
+                alt="Close"
+                width={20}
+                height={20}
+              />
+            </button>
+          </div>
           {notifications.length > 0 ? (
             notifications.map((notification) => (
               <div
