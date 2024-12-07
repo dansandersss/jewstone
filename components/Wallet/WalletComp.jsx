@@ -82,13 +82,13 @@ export default function WalletComp() {
   }
 
   return (
-    <div className="container mb-[230px] md:mb-0 w-full h-full xl:h-[calc(100%-200px)]">
+    <div className="container mb-[230px] md:mb-0 w-full h-full pb-[150px] xl:h-[calc(100%-200px)]">
       <div className="xl:flex block xl:flex-col xl:justify-center justify-normal">
         <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
           Денежные средства
         </h1>
 
-        <div className="wallet_card_cont flex flex-wrap justify-center gap-5 md:flex-nowrap md:gap-5 mb-5">
+        <div className="wallet_card_cont flex flex-wrap justify-center gap-5 md:flex-wrap xl:flex-nowrap md:gap-5 mb-5">
           <WalletCard
             icon={icons.icon1}
             title="Мой процент инвестиций"
@@ -106,7 +106,7 @@ export default function WalletComp() {
           />
         </div>
 
-        <div className="flex items-center justify-center flex-wrap md:flex-nowrap md:justify-between gap-3 border rounded-[10px] p-5">
+        <div className="flex items-center justify-center flex-wrap md:flex-wrap xl:flex-nowrap md:justify-between gap-3 border rounded-[10px] p-5">
           <div className="flex items-center gap-4">
             <div className="bg-customOrange rounded-full p-2">
               <Image src={icons.icon1} width={24} alt="Icon" />

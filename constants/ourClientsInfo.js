@@ -7,15 +7,15 @@ export const ourClientsInfo = [
   },
   {
     image: images.ourClients2,
-    text: "Дизайнеры украшений",
+    text: "Ювелирные магазины",
   },
   {
     image: images.ourClients3,
-    text: "Дизайнеры украшений",
+    text: "Производители украшений",
   },
   {
     image: images.ourClients4,
-    text: "Дизайнеры украшений",
+    text: "Люди, желающие создать свое собственное украшение",
   },
 ];
 

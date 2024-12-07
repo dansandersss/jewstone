@@ -16,8 +16,12 @@ import frame3 from "@/public/assets/images/frame2.png";
 import frame4 from "@/public/assets/images/frame3.png";
 
 import investBg from "@/public/assets/images/investBg.png";
+import contactBg from "@/public/assets/images/contactBg.png";
 
 import circle1 from "@/public/assets/images/circle1.png";
+import circle2 from "@/public/assets/images/circle2.png";
+import circle3 from "@/public/assets/images/circle3.png";
+import circle4 from "@/public/assets/images/circle4.png";
 
 export default {
   logo,
@@ -35,5 +39,9 @@ export default {
   frame3,
   frame4,
   investBg,
+  contactBg,
   circle1,
+  circle2,
+  circle3,
+  circle4,
 };

@@ -1,130 +1,197 @@
+"use client";
+
 import images from "@/constants/images";
 import Image from "next/image";
 import CustomButton from "../CustomButton/CustomButton";
 import icons from "@/constants/icons";
 import { ourClientsInfo, advantagesInfo } from "@/constants/ourClientsInfo";
+// import Timeline from "./Timeline";
+import styles from "./styles.module.css";
+import Footer from "../Footer/Footer";
+import { useRouter } from "next/navigation";
+import { checkAuth } from "@/utils/appwrite";
 
 export default function HeroComp() {
+  const router = useRouter();
+
+  const handleLoginRedirect = async () => {
+    try {
+      const isAuthenticated = await checkAuth();
+      if (isAuthenticated) {
+        router.push("/home/wallet");
+      } else {
+        router.push("/login");
+      }
+    } catch (error) {
+      console.error("Error during authentication", error);
+      router.push("/login");
+    }
+  };
   return (
     <>
-      <section className="hero pt-5 pb-[65px] px-[80px] bg-white border-b-customOrange border">
+      <section
+        className="hero pt-5 pb-[300px] lg:pb-[100px] px-[15px] md:px-[80px] bg-white border-b-customOrange border flex flex-col justify-center items-center"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(233, 233, 235, 1), rgba(255, 255, 255, 1))",
+        }}
+      >
         <div className="container">
-          <div className="w-full flex items-center justify-center mb-[106px]">
+          <div className="w-full flex items-center justify-center mb-[20px] lg:mb-[106px]">
             <Image src={images.logo2} width={297} />
           </div>
           <div className="relative">
-            <div className="flex flex-col items-center justify-center gap-5 relative z-20">
-              <h1 className="text-[70px] leading-[79.54px] text-center">
-                Инвестируйте<br></br> в ювелирные украшения <br></br> на заказ и
-                получайте прибыль
+            <div className="flex flex-col w-full items-center justify-normal md:justify-center gap-3 sm:gap-5 relative z-20">
+              <h1 className=" text-[35px] leading-[25px] md:text-[70px] md:leading-[79.54px] text-center">
+                Инвестируйте в ювелирные украшения на заказ и получайте прибыль
               </h1>
-              <p className="text-[20px] leading-[24.38px] text-center w-[655px]">
-                Вступайте в бизнес клуб и получайте дополнительный доход.
-                <br></br> С нас — готовый бизнес-план и управление проектом,
-                <br></br> с вас — только инвестиции.
+              <p className=" text-[14px] leading-[17.07px] md:text-[20px] md:leading-[24.38px] text-center w-[330px] md:w-[655px]">
+                Вступайте в бизнес клуб и получайте дополнительный доход. С нас
+                — готовы бизнес-план и управление проектом, с вас — только
+                инвестиции.
               </p>
               <div className="flex flex-col gap-5 items-center">
                 <CustomButton
                   text="Инвестировать сейчас"
-                  customClass="bg-customGray w-[300px] text-white py-[20px] px-[55px] rounded-none text-[16px]"
+                  customClass="bg-customGray w-[240px] md:w-[360px] text-white py-[15px] md:py-[20px] px-[25px] md:px-[55px] rounded-none text-[16px]"
                 />
                 <CustomButton
                   text="Войти в личный кабинет"
-                  customClass="bg-customOrange w-[300px] text-white py-[20px] px-[55px] rounded-none text-[16px]"
+                  customClass="bg-customOrange w-[240px] md:w-[360px] text-white py-[15px] md:py-[20px] px-[25px] md:px-[55px] rounded-none text-[16px]"
+                  onClick={handleLoginRedirect}
                 />
               </div>
             </div>
             <Image
               src={images.image1}
-              className="absolute top-[-70px] right-[160px] opacity-75 z-10"
-              width={176}
+              className="absolute bottom-[-250px] lg:top-[-70px] right-0 sm:right-[100px] md:right-[85px] lg:right-[100px] xl:right-[160px] opacity-75 z-10 w-[150px] sm:w-[176px]"
             />
             <Image
               src={images.image2}
-              className="absolute top-[250px] left-[160px] opacity-75 z-10"
+              className="absolute bottom-[-250px] lg:top-[250px] left-0 sm:left-[100px] md:left-[85px] lg:left-[100px] xl:left-[160px] opacity-75 z-10 w-[150px] sm:w-[176px]"
               width={176}
             />
           </div>
         </div>
       </section>
-      <section className="about bg-white pt-[100px] px-[80px]">
+
+      <section
+        className="about bg-white pt-[40px] lg:pt-[100px] px-[15px] md:px-[80px]"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(233, 233, 235, 1), rgba(255, 255, 255, 1))",
+        }}
+      >
         <div className="container">
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-col-reverse lg:flex-row items-center justify-center md:justify-between gap-5 lg:gap-3">
             <div>
-              <Image src={images.image3} width={630} />
+              <Image
+                className="hidden md:block"
+                src={images.image3}
+                className="w-[470px] lg:w-[630px]"
+              />
             </div>
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col justify-center items-center gap-5">
               <div className="title flex flex-col items-center justify-center gap-3">
-                <h2 className="text-[35px] leading-[40px] text-center ">
+                <h2 className="text-[20px] leading-[22.72px] lg:text-[20px] xl:text-[35px] lg:leading-[22.72px] xl:leading-[40px] sm:text-[35px] sm:leading-[40px] text-center">
                   JEWSTONE – производство <br></br> ювелирных изделий на заказ
                 </h2>
                 <Image src={icons.starsIcon} width={203} />
               </div>
-              <p className="text-customOrange text-[20px] leading-[24.38px] text-center w-[470px]">
+              <p className="text-customOrange text-[16px] leading-[19.5px] lg:leading-[19.5px] lg:text-[16px] xl:text-[20px] xl:leading-[24.38px] sm:text-[20px] sm:leading-[24.38px] text-center w-[330px] sm:w-[470px]">
                 Готовый проект замкнутого цикла,
-                <br /> не требующий капитальных вложений,
-                <br /> но с высоким NPV
+                <br /> не требующий капитальных
+                <br /> вложений, но с высоким NPV
               </p>
-              <p className="opacity-80 w-[470px] text-[16px] leading-[19.5px] text-center">
-                Бизнес направлен на производство уникальных
-                <br /> индивидуальных украшений, учитывающих все
-                <br /> пожелания заказчиков. Мы предлагаем симбиоз
-                <br /> изделий из качественных материалов и отлично
+              <p className="opacity-75 w-[330px] text-[14px] lg:text-[14px] lg:leading-[17.07px] xl:text-[16px] xl:leading-[19.5px] leading-[17.07px] sm:w-[470px] sm:text-[16px] sm:leading-[19.5px] text-center">
+                Бизнес направлен на производство
+                <br /> уникальных индивидуальных украшений,
+                <br /> учитывающих все пожелания заказчиков.
+                <br /> Мы предлагаем симбиоз изделий из
+                <br /> качественных материалов и отлично
                 <br /> выстроенной коммуникации с ЦА
               </p>
               <CustomButton
                 text="Перейти на сайт"
-                customClass="custom-animated-btn bg-transparent border border-customGray py-[20px] rounded-none px-[166px]"
+                customClass="custom-animated-btn bg-transparent border border-customGray w-[330px] py-[15px] sm:w-[470px] sm:py-[20px] rounded-none px-[166px]"
               />
             </div>
           </div>
         </div>
       </section>
+
       <section
-        className="our_clients bg-white pt-[100px] px-[80px]"
+        className="our_clients bg-white pt-[40px] px-[15px] lg:pt-[100px] flex justify-center md:px-[80px]"
         style={{
           background:
-            "linear-gradient(rgb(255, 255, 255), rgb(250 250 235) 50%, rgb(255, 253, 245))",
+            "linear-gradient(to bottom, rgba(233, 233, 235, 1), rgba(255, 255, 255, 1))",
         }}
       >
-        <div className="container">
+        <div className="container max-w-[1200px] mx-auto">
           <div className="title flex flex-col items-center mb-[40px] justify-center gap-3">
-            <h2 className="text-[35px] leading-[40px] text-center ">
+            <h2 className="text-[20px] leading-[22.72px] sm:text-[35px] sm:leading-[40px] text-center">
               Наши клиенты
             </h2>
-            <Image src={icons.starsIcon} width={203} />
+            <Image src={icons.starsIcon} width={203} alt="Stars Icon" />
           </div>
-          <div className="flex justify-between h-[600px]">
+          <div className="flex justify-center gap-4 flex-wrap items-start">
             {ourClientsInfo.map((ourClientInfo, index) => (
               <div
                 key={index}
-                className={` transition-all ease-in-out duration-150 hover:-translate-y-1 flex flex-col ${
-                  index % 2 === 0 ? "self-start" : "self-end"
+                className={`transition-all ease-in-out duration-150 hover:-translate-y-1 flex flex-col ${
+                  index % 2 === 1 ? "self-end" : "self-start"
                 }`}
+                style={{
+                  minHeight: "200px", // Задает минимальную высоту для синхронизации
+                }}
               >
-                <Image src={ourClientInfo.image} width={305} height={200} />
-                <p className="mt-3">{ourClientInfo.text}</p>
+                <Image
+                  src={ourClientInfo.image}
+                  className="w-[305px] lg:w-[200px] xl:w-[305px]"
+                  height={200}
+                  alt="Client"
+                />
+                <p className="mt-3 w-[305px] lg:w-[200px] xl:w-[305px] text-center">
+                  {ourClientInfo.text}
+                </p>
               </div>
             ))}
           </div>
         </div>
+        <style>
+          {`
+      .our_clients {
+        min-height: 100%; /* Делаем высоту секции гибкой */
+        position: relative; /* Гарантирует, что элементы остаются внутри секции */
+      }
+      @media (max-width: 768px) {
+        .our_clients {
+          padding-top: 20px; /* Уменьшаем отступы для маленьких экранов */
+        }
+      }
+    `}
+        </style>
       </section>
-      <section className="why_we bg-white pt-[100px] px-[80px] pb-[100px]">
+
+      <section className="why_we pt-[40px] pb-[50px] px-[15px] lg:pt-[100px] lg:px-[80px] lg:pb-[100px] bg-white flex justify-center items-center">
         <div className="container">
           <div className="title flex flex-col items-center mb-[40px] justify-center gap-3">
-            <h2 className="text-[35px] leading-[40px] text-center ">
+            <h2 className="text-[20px] leading-[22.72px] sm:text-[35px] sm:leading-[40px] text-center">
               Почему инвестировать в наш проект выгодно?
             </h2>
             <Image src={icons.starsIcon} width={203} />
           </div>
-          <div className="flex justify-between ">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-5 lg:justify-center lg:gap-5 ">
             {advantagesInfo.map((advantage, index) => (
-              <div key={index} className="relative w-[305px] h-[206px]">
+              <div
+                key={index}
+                className="relative w-[305px] sm:w-[440px] md:w-[305px] h-[206px]"
+              >
                 <div className="relative z-20">
                   <h3 className="text-[25px] text-customOrange leading-[28.41px] text-center pb-[15px] mb-[15px] border-b-black border-b">
                     {advantage.title}
                   </h3>
-                  <p className="w-[305px] text-[16px] leading-[19.5px] text-center text-customGray opacity-80">
+                  <p className="w-[305px] sm:w-[440px] md:w-[305px] text-[16px] leading-[19.5px] text-center text-customGray opacity-80">
                     {advantage.text}
                   </p>
                 </div>
@@ -138,8 +205,9 @@ export default function HeroComp() {
           </div>
         </div>
       </section>
+
       <section
-        className="invest bg-white py-[60px] px-[80px] max-h-[640px] max-w-[1440px]"
+        className="invest bg-white py-0 lg:py-[60px] px-[15px] md:px-[80px] max-h-[640px] max-w-[1440px] 2xl:max-w-full"
         style={{
           backgroundImage: "url('/assets/images/investBg.png')",
           backgroundSize: "cover",
@@ -148,26 +216,26 @@ export default function HeroComp() {
         }}
       >
         <div className="container w-full">
-          <div className="w-1/2 flex flex-col items-center justify-center">
+          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center">
             <div className="title flex flex-col items-center mb-[10px] justify-center gap-3">
-              <h2 className="text-[35px] leading-[40px] text-center ">
+              <h2 className="text-[20px] leading-[22.72px] sm:text-[35px] sm:leading-[40px] text-center">
                 Бизнес, который будет
                 <br /> востребован долгие годы
               </h2>
               <Image src={icons.starsIcon} width={203} />
             </div>
-            <p className="text-center font-bold text-customGray text-[20px] leading-[24.38px] mb-[24px] w-[470px]">
+            <p className="text-center font-bold text-customGray leading-[19.5px] text-[16px] md:text-[20px] md:leading-[24.38px] mb-[24px] w-[470px]">
               Инвестируя в наш проект,
               <br /> вы становитесь частью стабильного
               <br /> и долгосрочного бизнеса
             </p>
-            <p className="w-[470px] border-b border-b-black pb-5 text-[16px] text-center leading-[19.5px] mb-[24px] opacity-80">
-              Уникальные изделия на заказ всегда находят своего
-              <br /> покупателя, так как они соответствуют
-              <br /> индивидуальным запросам.
+            <p className="w-[330px] text-[14px] leading-[17.07px] md:w-[470px] border-b border-b-black pb-5 md:text-[16px] text-center sm:leading-[19.5px] mb-[24px] opacity-80">
+              Уникальные изделия на заказ всегда
+              <br /> находят своего покупателя, так как они
+              <br /> соответствуют индивидуальным запросам.
             </p>
 
-            <div className="flex items-center mb-[40px] h-[121px]">
+            <div className="flex items-center mb-[24px] md:mb-[40px] h-[121px]">
               <span>в</span>
               <div className="flex flex-col gap-[7px] items-center mr-[59px]">
                 <h3 className="font-bold text-[70px] leading-[79.54px] text-customOrange">
@@ -188,13 +256,19 @@ export default function HeroComp() {
             </div>
             <CustomButton
               text="Инвестировать сейчас"
-              customClass="bg-customGray w-[470px] text-white rounded-none py-[18px]"
+              customClass="bg-customGray w-[240px] md:w-[470px] text-white rounded-none px-[25px] md:px-0 py-[15px] md:py-[18px]"
             />
           </div>
         </div>
       </section>
 
-      <section className="timeline bg-white pt-[100px] px-[80px]">
+      <section
+        className="timeline bg-white pt-[40px] lg:pt-[100px] px-[15px] flex justify-center md:px-[80px] pb-[50px] lg:pb-[100px] border-b-customOrange border-b"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(233, 233, 235, 1), rgba(255, 255, 255, 1))",
+        }}
+      >
         <div className="container flex flex-col justify-center items-center">
           <div className="title flex flex-col items-center mb-[40px] justify-center gap-3">
             <h2 className="text-[35px] leading-[40px] text-center ">
@@ -203,38 +277,270 @@ export default function HeroComp() {
             <Image src={icons.starsIcon} width={203} />
           </div>
 
-          <div className="flex flex-col justify-center items-center w-full">
-            <Image src={icons.line1} height={80} />
+          <div className="mobile_timeline flex xl:hidden flex-col justify-center items-center w-full sm:w-[440px]">
+            <Image src={icons.line1} height={30} className="mb-[10px]" />
 
-            <div className="flex flex-row items-center gap-[10px] w-full justify-start">
-              <div className="flex flex-col items-center gap-[15px]">
-                <h2 className="text-[25px] leading-[28.41px] pl-[40px] text-customOrange">
+            <div className="flex flex-col items-center gap-[10px] mb-[10px] w-full sm:w-[440px] justify-start sm:justify-center">
+              <div>
+                <Image src={images.circle1} width={30} />
+              </div>
+
+              <div>
+                <span className="text-[18px] leading-[21.94px] sm:text-[30px] sm:leading-[30.48px] opacity-50">
+                  Завершено
+                </span>
+              </div>
+              <div className="w-full sm:w-[440px] flex flex-col gap-[10px]">
+                <h2 className="text-customOrange text-[18px] leading-[20.45px] text-center px-5">
                   Разработка концепции и анализ рынка
                 </h2>
-
-                <Image src={icons.line2} width={588} />
-
-                <p className="text-[16px] leading-[19.5px] pl-[40px] text-customGray opacity-80 w-[482px]">
+                <Image src={icons.line2} className="w-[330px] sm:w-[440px]" />
+                <p className="w-[330px] sm:w-[440px] text-[12px] leading-[14.63px]">
                   Мы провели тщательное исследование рынка и выявили высокий
                   спрос на изделия на заказ. Были разработаны концепции
                   уникальных продуктов, протестированы прототипы и определены
                   ключевые направления.
                 </p>
               </div>
-              <div className="mb-[30px]">
-                <Image src={images.circle1} width={85} />
+            </div>
+
+            <Image src={icons.line3} height={30} className="mb-[10px]" />
+
+            <div className="flex flex-col items-center gap-[10px] w-full justify-start">
+              <div>
+                <Image src={images.circle2} width={30} />
               </div>
-              <div className="mb-[30px]">
+
+              <div>
+                <span className="text-[18px] leading-[21.94px] sm:text-[30px] sm:leading-[30.48px] opacity-50">
+                  Завершено
+                </span>
+              </div>
+              <div className="w-full flex flex-col gap-[10px]">
+                <h2 className="text-customOrange text-[18px] leading-[20.45px] text-center px-5">
+                  Запуск производства и пилотные продажи
+                </h2>
+                <Image src={icons.line2} className="w-[330px] sm:w-[440px]" />
+                <p className="w-[330px] sm:w-[440px] text-[12px] leading-[14.63px]">
+                  Мы запустили первую партию базовых украшений и изделий на
+                  заказ. Продажи показали успешные результаты, что подтвердило
+                  актуальность нашего продукта.
+                </p>
+              </div>
+            </div>
+
+            <Image src={icons.line3} height={30} className="mb-[10px]" />
+
+            <div className="flex flex-col items-center gap-[10px] w-full justify-start">
+              <div>
+                <Image src={images.circle3} width={30} />
+              </div>
+
+              <div>
+                <span className="text-[18px] leading-[21.94px] sm:text-[30px] sm:leading-[30.48px] opacity-50">
+                  Текущий этап
+                </span>
+              </div>
+              <div className="w-full flex flex-col gap-[10px]">
+                <h2 className="text-customOrange text-[18px] leading-[20.45px] text-center px-5">
+                  Привлечение инвестиций и обеспечение бесперебойного
+                  функционирования
+                </h2>
+                <Image src={icons.line2} className="w-[330px] sm:w-[440px]" />
+                <p className="w-[330px] sm:w-[440px] text-[12px] leading-[14.63px]">
+                  На данном этапе мы привлекаем инвестиции для запуска проекта.
+                  Обладая всеми инструментами, мы можем контролировать процесс и
+                  получать доход.
+                </p>
+              </div>
+            </div>
+
+            <Image src={icons.line3} height={30} className="mb-[10px]" />
+
+            <div className="flex flex-col items-center gap-[10px] w-full justify-start">
+              <div>
+                <Image src={images.circle4} width={30} />
+              </div>
+
+              <div>
+                <span className="text-[18px] leading-[21.94px] sm:text-[30px] sm:leading-[30.48px] opacity-50">
+                  6-12 месяцев
+                </span>
+              </div>
+              <div className="w-full flex flex-col gap-[10px]">
+                <h2 className="text-customOrange text-[18px] leading-[20.45px] text-center px-5">
+                  Масштабирование и увеличение прибыли
+                </h2>
+                <Image src={icons.line2} className="w-[330px] sm:w-[440px]" />
+                <p className="w-[330px] text-[12px] leading-[14.63px]">
+                  Стабильный рост продаж и расширение клиентской базы позволят
+                  нам увеличить прибыль и расширить деятельность. На этом этапе
+                  инвесторы начнут получать увеличенные доходы от проекта
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden xl:flex flex-col justify-center items-center w-full">
+            <Image src={icons.line1} height={80} className="mb-[10px]" />
+
+            <div className="flex flex-row items-center gap-[10px] w-full justify-between">
+              <div className={`${styles.line2Container} w-[45%]`}>
+                <h2 className={`${styles.title} `}>
+                  Разработка концепции и анализ рынка
+                </h2>
+                <Image src={icons.line2} className="w-full" />
+                <p className={styles.description}>
+                  Мы провели тщательное исследование рынка и выявили высокий
+                  спрос на изделия на заказ. Были разработаны концепции
+                  уникальных продуктов, протестированы прототипы и определены
+                  ключевые направления.
+                </p>
+              </div>
+              <div className="mb-[10px] w-[10%]]">
+                <Image
+                  src={images.circle1}
+                  width={85}
+                  className="flex justify-center"
+                />
+              </div>
+              <div className="w-[45%]">
                 <span className="text-[30px] leading-[30.48px] opacity-50">
                   Завершено
                 </span>
               </div>
             </div>
 
-            <Image src={icons.line3} height={80} />
+            <Image src={icons.line3} height={80} className="mb-[10px]" />
+
+            <div className="flex flex-row items-center gap-[10px] w-full justify-between">
+              <div className="w-[45%]">
+                <span className="text-[30px] leading-[30.48px] flex justify-end opacity-50">
+                  Завершено
+                </span>
+              </div>
+
+              <div className="mb-[10px] flex justify-center w-[10%]">
+                <Image src={images.circle2} width={85} />
+              </div>
+
+              <div className={`${styles.line2Container} w-[45%]`}>
+                <h2 className={styles.title}>
+                  Запуск производства и пилотные продажи
+                </h2>
+                <Image src={icons.line2} className="-scale-x-100 w-full" />
+                <p className={styles.description}>
+                  Мы запустили первую партию базовых украшений и изделий на
+                  заказ. Продажи показали успешные результаты, что подтвердило
+                  актуальность нашего продукта.
+                </p>
+              </div>
+            </div>
+
+            <Image src={icons.line3} height={80} className="mb-[10px]" />
+
+            <div className="flex flex-row items-center gap-[10px] w-full justify-between">
+              <div className={`${styles.line2Container} w-[45%]`}>
+                <h2 className={styles.title} style={{ top: "-90px" }}>
+                  Привлечение инвестиций и обеспечение бесперебойного
+                  функционирования
+                </h2>
+                <Image src={icons.line2} className="w-full" />
+                <p className={styles.description}>
+                  На данном этапе мы привлекаем инвестиции для запуска проекта.
+                  Обладая всеми инструментами, мы можем контролировать процесс и
+                  получать доход.
+                </p>
+              </div>
+              <div className="mb-[10px] w-[10%] flex justify-center">
+                <Image src={images.circle3} width={85} />
+              </div>
+              <div className="w-[45%]">
+                <span className="text-[30px] leading-[30.48px] opacity-50">
+                  Завершено
+                </span>
+              </div>
+            </div>
+
+            <Image src={icons.line3} height={80} className="mb-[10px]" />
+
+            <div className="flex flex-row items-center gap-[10px] w-full justify-between">
+              <div className="w-[45%] flex justify-end">
+                <span className="text-[30px] leading-[30.48px] opacity-50">
+                  Завершено
+                </span>
+              </div>
+
+              <div className="mb-[10px] w-[10%] flex justify-center">
+                <Image src={images.circle4} width={85} />
+              </div>
+
+              <div className={`${styles.line2Container} w-[45%]`}>
+                <h2 className={`${styles.title}`} style={{ top: "-60px" }}>
+                  Масштабирование и увеличение прибыли
+                </h2>
+                <Image src={icons.line2} className="-scale-x-100 w-full" />
+                <p className={styles.description}>
+                  Стабильный рост продаж и расширение клиентской базы позволят
+                  нам увеличить прибыль и расширить деятельность. На этом этапе
+                  инвесторы начнут получать увеличенные доходы от проекта
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+      <section className="contact bg-white pt-[32px] lg:pt-[100px] px-[15px] md:px-[80px] pb-[50px] md:pb-[100px] max-h-[900px] max-w-[1440px] 2xl:max-w-full md:bg-[url('/assets/images/contactBg.png')] md:bg-cover sm:bg-center md:bg-no-repeat">
+        <div className="container w-full">
+          <div className="w-full md:w-1/2 flex flex-col justify-center sm:justify-normal">
+            <div className="title mb-[10px] sm:mb-[30px]">
+              <h2 className="text-[23px] text-center sm:text-left leading-[28.04px] sm:text-[40px] md:text-[30px] md:leading-[25px] lg:text-[40px] lg:leading-[50px] sm:leading-[50px] text-customGray font-bold">
+                Хотите узнать больше?
+                <br /> Свяжитесь с нами!
+              </h2>
+            </div>
+            <p className="text-customGray text-center text-[14px] leading-[20px] sm:text-[20px] md:text-[14px] md:leading-[20px] lg:text-[20px] lg:leading-[30px] sm:text-left sm:leading-[30px] mb-[10px] sm:mb-[30px] opacity-80">
+              Мы готовы обсудить все детали и ответить на ваши вопросы лично.
+              Оставьте свои контактные данные, и мы свяжемся с вами для
+              подробного обсуждения условий инвестирования.
+            </p>
+
+            <form className="w-full flex flex-col mb-[10px] sm:mb-[20px] gap-[15px]">
+              <div className="flex flex-col sm:flex-row gap-[10px] sm:gap-[20px]">
+                <input
+                  type="text"
+                  placeholder="Ваше имя"
+                  className=" w-full sm:w-1/2 text-[16px] leading-[19.5px] p-[15px] sm:p-[25px] md:p-[15px] lg:p-[25px] border bg-transparent border-customGray focus:outline-none focus:ring-2 focus:ring-gray-500"
+                />
+                <input
+                  type="email"
+                  placeholder="Ваш E-mail"
+                  className=" w-full sm:w-1/2 text-[16px] leading-[19.5px] p-[15px] sm:p-[25px] md:p-[15px] lg:p-[25px] border bg-transparent border-customGray focus:outline-none focus:ring-2 focus:ring-gray-500"
+                />
+              </div>
+              <textarea
+                placeholder="Сообщение (необязательное поле)"
+                rows="4"
+                className="w-full text-[16px] leading-[19.5px] p-[15px] sm:p-[25px] md:p-[15px] lg:p-[25px] border bg-transparent border-customGray focus:outline-none focus:ring-2 focus:ring-gray-500"
+              ></textarea>
+            </form>
+
+            <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row items-center gap-[15px]">
+              <CustomButton
+                text="Отправить"
+                customClass="bg-customGray w-full sm:w-[300px] text-white rounded-none py-[15px] sm:py-[18px]"
+              />
+              <p className="w-[330px] sm:w-[315px] text-[12px] sm:text-[14px] md:text-[10px] md:leading-[10px] lg:leading-[20px] lg:text-[14px] opacity-50 leading-[20px]">
+                Нажимая кнопку “Отправить”, Вы соглашаетесь с условиями Политики
+                конфиденциальности
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer isFixed={false} />
     </>
   );
 }

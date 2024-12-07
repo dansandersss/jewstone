@@ -44,7 +44,7 @@ export default function PlanComp() {
           План инвестиций
         </h1>
 
-        <div className="flex items-center gap-5 flex-wrap md:flex-nowrap">
+        <div className="flex items-center gap-5 flex-wrap xl:flex-nowrap">
           <div className="flex flex-col gap-5 w-full md:w-auto">
             <div className="flex flex-wrap md:flex-nowrap items-center justify-center md:justify-normal gap-5">
               <input

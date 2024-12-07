@@ -49,13 +49,13 @@ export default function ProfileComp() {
   };
 
   return (
-    <div className="container mb-[230px] md:mb-0 w-full h-full xl:h-[calc(100%-200px)]">
+    <div className="container mb-[230px] md:mb-0 w-full h-full xl:h-[calc(100%-200px)] pb-[150px]">
       <div className="xl:flex block xl:flex-col xl:justify-center justify-normal">
         <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
           Личные данные
         </h1>
 
-        <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-6 rounded-[10px] border p-5">
+        <div className="flex flex-wrap xl:flex-nowrap items-center justify-center gap-6 rounded-[10px] border p-5 ">
           <div className="flex items-center md:flex-col flex-col ">
             <div>
               {user?.avatar ? (

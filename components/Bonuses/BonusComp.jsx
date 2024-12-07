@@ -10,16 +10,20 @@ export default function BonusComp() {
           Бонусы
         </h1>
 
-        <div className="flex flex-wrap md:flex-nowrap gap-7 justify-center items-center">
+        <div className="flex flex-wrap xl:flex-nowrap gap-7 justify-center items-center">
           {bonuses.map((bonus, index) => (
             <div
               key={index}
-              className="relative border rounded-[10px] p-[15px] shadow-md w-[347px]"
+              className="relative flex flex-col items-center justify-center border rounded-[10px] p-[15px] shadow-md w-[347px]"
             >
               <div className="bg-customOrange rounded-full absolute text-white text-[12px] py-[17px] px-[5px] top-2 left-2">
                 {bonus.tagMark}
               </div>
-              <Image src={bonus.img} alt="Bonus" width={317} />
+              <Image
+                src={bonus.img}
+                alt="Bonus"
+                className="w-[200px] xl:w-[317px]"
+              />
 
               <div className="border-t">
                 <p className=" pt-[15px] text-[16px] font-bold leading-4">
