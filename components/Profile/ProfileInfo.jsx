@@ -43,7 +43,7 @@ export default function ProfileInfo() {
     if (isClient && user?.$id) {
       fetchUserProfile();
     }
-  }, [isClient, user?.$id]);
+  }, [isClient, user?.$id, fetchUserProfile]);
 
   const handleSaveChanges = async () => {
     try {

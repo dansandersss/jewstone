@@ -25,7 +25,7 @@ export default function Footer({ isFixed = true }) {
               href={socialLink.forward}
               className="hover:scale-125 scale-100 transition-all ease-in duration-150"
             >
-              <Image src={socialLink.icon} alt="Telegram" width={22} />
+              <Image src={socialLink.icon} alt="Social Link" width={22} />
             </Link>
           ))}
         </div>

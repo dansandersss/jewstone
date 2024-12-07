@@ -38,7 +38,7 @@ export default function HeroComp() {
       >
         <div className="container">
           <div className="w-full flex items-center justify-center mb-[20px] lg:mb-[106px]">
-            <Image src={images.logo2} width={297} />
+            <Image src={images.logo2} alt="Image" width={297} />
           </div>
           <div className="relative">
             <div className="flex flex-col w-full items-center justify-normal md:justify-center gap-3 sm:gap-5 relative z-20">
@@ -64,10 +64,12 @@ export default function HeroComp() {
             </div>
             <Image
               src={images.image1}
+              alt="Image"
               className="absolute bottom-[-250px] lg:top-[-70px] right-0 sm:right-[100px] md:right-[85px] lg:right-[100px] xl:right-[160px] opacity-75 z-10 w-[150px] sm:w-[176px]"
             />
             <Image
               src={images.image2}
+              alt="Image"
               className="absolute bottom-[-250px] lg:top-[250px] left-0 sm:left-[100px] md:left-[85px] lg:left-[100px] xl:left-[160px] opacity-75 z-10 w-[150px] sm:w-[176px]"
               width={176}
             />
@@ -86,9 +88,9 @@ export default function HeroComp() {
           <div className="flex flex-col-reverse lg:flex-row items-center justify-center md:justify-between gap-5 lg:gap-3">
             <div>
               <Image
-                className="hidden md:block"
+                className="hidden md:block w-[470px] lg:w-[630px]"
                 src={images.image3}
-                className="w-[470px] lg:w-[630px]"
+                alt="Image"
               />
             </div>
             <div className="flex flex-col justify-center items-center gap-5">
@@ -96,7 +98,7 @@ export default function HeroComp() {
                 <h2 className="text-[20px] leading-[22.72px] lg:text-[20px] xl:text-[35px] lg:leading-[22.72px] xl:leading-[40px] sm:text-[35px] sm:leading-[40px] text-center">
                   JEWSTONE – производство <br></br> ювелирных изделий на заказ
                 </h2>
-                <Image src={icons.starsIcon} width={203} />
+                <Image src={icons.starsIcon} alt="Stars Icon" width={203} />
               </div>
               <p className="text-customOrange text-[16px] leading-[19.5px] lg:leading-[19.5px] lg:text-[16px] xl:text-[20px] xl:leading-[24.38px] sm:text-[20px] sm:leading-[24.38px] text-center w-[330px] sm:w-[470px]">
                 Готовый проект замкнутого цикла,
@@ -179,7 +181,7 @@ export default function HeroComp() {
             <h2 className="text-[20px] leading-[22.72px] sm:text-[35px] sm:leading-[40px] text-center">
               Почему инвестировать в наш проект выгодно?
             </h2>
-            <Image src={icons.starsIcon} width={203} />
+            <Image src={icons.starsIcon} alt="Stars Icon" width={203} />
           </div>
           <div className="flex flex-wrap justify-center gap-3 md:gap-5 lg:justify-center lg:gap-5 ">
             {advantagesInfo.map((advantage, index) => (
@@ -196,6 +198,7 @@ export default function HeroComp() {
                   </p>
                 </div>
                 <Image
+                  alt="Advantage"
                   src={advantage.frame}
                   width={168}
                   className="absolute top-0 left-[50%] -translate-x-[50%] z-10"
@@ -222,7 +225,7 @@ export default function HeroComp() {
                 Бизнес, который будет
                 <br /> востребован долгие годы
               </h2>
-              <Image src={icons.starsIcon} width={203} />
+              <Image src={icons.starsIcon} alt="Stars Icon" width={203} />
             </div>
             <p className="text-center font-bold text-customGray leading-[19.5px] text-[16px] md:text-[20px] md:leading-[24.38px] mb-[24px] w-[470px]">
               Инвестируя в наш проект,
@@ -247,7 +250,12 @@ export default function HeroComp() {
               </div>
 
               <div className="flex flex-col items-center">
-                <Image src={icons.upIcon} width={70} className="mb-[10px]" />
+                <Image
+                  src={icons.upIcon}
+                  width={70}
+                  className="mb-[10px]"
+                  alt="Up Icon"
+                />
                 <p className="text-[14px] leading-[17.07px] opacity-80 text-center">
                   Развивающаяся
                   <br /> индустрия
@@ -274,15 +282,20 @@ export default function HeroComp() {
             <h2 className="text-[35px] leading-[40px] text-center ">
               Карта запуска проекта
             </h2>
-            <Image src={icons.starsIcon} width={203} />
+            <Image src={icons.starsIcon} alt="Stars Icon" width={203} />
           </div>
 
           <div className="mobile_timeline flex xl:hidden flex-col justify-center items-center w-full sm:w-[440px]">
-            <Image src={icons.line1} height={30} className="mb-[10px]" />
+            <Image
+              src={icons.line1}
+              alt="Line"
+              height={30}
+              className="mb-[10px]"
+            />
 
             <div className="flex flex-col items-center gap-[10px] mb-[10px] w-full sm:w-[440px] justify-start sm:justify-center">
               <div>
-                <Image src={images.circle1} width={30} />
+                <Image src={images.circle1} alt="Circle" width={30} />
               </div>
 
               <div>
@@ -294,7 +307,11 @@ export default function HeroComp() {
                 <h2 className="text-customOrange text-[18px] leading-[20.45px] text-center px-5">
                   Разработка концепции и анализ рынка
                 </h2>
-                <Image src={icons.line2} className="w-[330px] sm:w-[440px]" />
+                <Image
+                  src={icons.line2}
+                  alt="Line"
+                  className="w-[330px] sm:w-[440px]"
+                />
                 <p className="w-[330px] sm:w-[440px] text-[12px] leading-[14.63px]">
                   Мы провели тщательное исследование рынка и выявили высокий
                   спрос на изделия на заказ. Были разработаны концепции
@@ -304,11 +321,16 @@ export default function HeroComp() {
               </div>
             </div>
 
-            <Image src={icons.line3} height={30} className="mb-[10px]" />
+            <Image
+              src={icons.line3}
+              alt="Line"
+              height={30}
+              className="mb-[10px]"
+            />
 
             <div className="flex flex-col items-center gap-[10px] w-full justify-start">
               <div>
-                <Image src={images.circle2} width={30} />
+                <Image src={images.circle2} alt="Circle" width={30} />
               </div>
 
               <div>
@@ -320,7 +342,11 @@ export default function HeroComp() {
                 <h2 className="text-customOrange text-[18px] leading-[20.45px] text-center px-5">
                   Запуск производства и пилотные продажи
                 </h2>
-                <Image src={icons.line2} className="w-[330px] sm:w-[440px]" />
+                <Image
+                  src={icons.line2}
+                  alt="Line"
+                  className="w-[330px] sm:w-[440px]"
+                />
                 <p className="w-[330px] sm:w-[440px] text-[12px] leading-[14.63px]">
                   Мы запустили первую партию базовых украшений и изделий на
                   заказ. Продажи показали успешные результаты, что подтвердило
@@ -329,11 +355,16 @@ export default function HeroComp() {
               </div>
             </div>
 
-            <Image src={icons.line3} height={30} className="mb-[10px]" />
+            <Image
+              src={icons.line3}
+              alt="Line"
+              height={30}
+              className="mb-[10px]"
+            />
 
             <div className="flex flex-col items-center gap-[10px] w-full justify-start">
               <div>
-                <Image src={images.circle3} width={30} />
+                <Image src={images.circle3} alt="Circle" width={30} />
               </div>
 
               <div>
@@ -346,7 +377,11 @@ export default function HeroComp() {
                   Привлечение инвестиций и обеспечение бесперебойного
                   функционирования
                 </h2>
-                <Image src={icons.line2} className="w-[330px] sm:w-[440px]" />
+                <Image
+                  src={icons.line2}
+                  alt="Line"
+                  className="w-[330px] sm:w-[440px]"
+                />
                 <p className="w-[330px] sm:w-[440px] text-[12px] leading-[14.63px]">
                   На данном этапе мы привлекаем инвестиции для запуска проекта.
                   Обладая всеми инструментами, мы можем контролировать процесс и
@@ -355,11 +390,16 @@ export default function HeroComp() {
               </div>
             </div>
 
-            <Image src={icons.line3} height={30} className="mb-[10px]" />
+            <Image
+              src={icons.line3}
+              height={30}
+              alt="Line"
+              className="mb-[10px]"
+            />
 
             <div className="flex flex-col items-center gap-[10px] w-full justify-start">
               <div>
-                <Image src={images.circle4} width={30} />
+                <Image src={images.circle4} alt="Circle" width={30} />
               </div>
 
               <div>
@@ -371,7 +411,11 @@ export default function HeroComp() {
                 <h2 className="text-customOrange text-[18px] leading-[20.45px] text-center px-5">
                   Масштабирование и увеличение прибыли
                 </h2>
-                <Image src={icons.line2} className="w-[330px] sm:w-[440px]" />
+                <Image
+                  src={icons.line2}
+                  alt="Line"
+                  className="w-[330px] sm:w-[440px]"
+                />
                 <p className="w-[330px] text-[12px] leading-[14.63px]">
                   Стабильный рост продаж и расширение клиентской базы позволят
                   нам увеличить прибыль и расширить деятельность. На этом этапе
@@ -382,14 +426,19 @@ export default function HeroComp() {
           </div>
 
           <div className="hidden xl:flex flex-col justify-center items-center w-full">
-            <Image src={icons.line1} height={80} className="mb-[10px]" />
+            <Image
+              src={icons.line1}
+              alt="Line"
+              height={80}
+              className="mb-[10px]"
+            />
 
             <div className="flex flex-row items-center gap-[10px] w-full justify-between">
               <div className={`${styles.line2Container} w-[45%]`}>
                 <h2 className={`${styles.title} `}>
                   Разработка концепции и анализ рынка
                 </h2>
-                <Image src={icons.line2} className="w-full" />
+                <Image src={icons.line2} alt="Line" className="w-full" />
                 <p className={styles.description}>
                   Мы провели тщательное исследование рынка и выявили высокий
                   спрос на изделия на заказ. Были разработаны концепции
@@ -400,6 +449,7 @@ export default function HeroComp() {
               <div className="mb-[10px] w-[10%]]">
                 <Image
                   src={images.circle1}
+                  alt="Circle"
                   width={85}
                   className="flex justify-center"
                 />
@@ -411,7 +461,12 @@ export default function HeroComp() {
               </div>
             </div>
 
-            <Image src={icons.line3} height={80} className="mb-[10px]" />
+            <Image
+              src={icons.line3}
+              alt="Line"
+              height={80}
+              className="mb-[10px]"
+            />
 
             <div className="flex flex-row items-center gap-[10px] w-full justify-between">
               <div className="w-[45%]">
@@ -421,14 +476,18 @@ export default function HeroComp() {
               </div>
 
               <div className="mb-[10px] flex justify-center w-[10%]">
-                <Image src={images.circle2} width={85} />
+                <Image src={images.circle2} alt="Circle" width={85} />
               </div>
 
               <div className={`${styles.line2Container} w-[45%]`}>
                 <h2 className={styles.title}>
                   Запуск производства и пилотные продажи
                 </h2>
-                <Image src={icons.line2} className="-scale-x-100 w-full" />
+                <Image
+                  src={icons.line2}
+                  alt="Line"
+                  className="-scale-x-100 w-full"
+                />
                 <p className={styles.description}>
                   Мы запустили первую партию базовых украшений и изделий на
                   заказ. Продажи показали успешные результаты, что подтвердило
@@ -437,7 +496,12 @@ export default function HeroComp() {
               </div>
             </div>
 
-            <Image src={icons.line3} height={80} className="mb-[10px]" />
+            <Image
+              src={icons.line3}
+              alt="Line"
+              height={80}
+              className="mb-[10px]"
+            />
 
             <div className="flex flex-row items-center gap-[10px] w-full justify-between">
               <div className={`${styles.line2Container} w-[45%]`}>
@@ -445,7 +509,7 @@ export default function HeroComp() {
                   Привлечение инвестиций и обеспечение бесперебойного
                   функционирования
                 </h2>
-                <Image src={icons.line2} className="w-full" />
+                <Image src={icons.line2} alt="Line" className="w-full" />
                 <p className={styles.description}>
                   На данном этапе мы привлекаем инвестиции для запуска проекта.
                   Обладая всеми инструментами, мы можем контролировать процесс и
@@ -453,7 +517,7 @@ export default function HeroComp() {
                 </p>
               </div>
               <div className="mb-[10px] w-[10%] flex justify-center">
-                <Image src={images.circle3} width={85} />
+                <Image src={images.circle3} alt="Circle" width={85} />
               </div>
               <div className="w-[45%]">
                 <span className="text-[30px] leading-[30.48px] opacity-50">
@@ -462,7 +526,12 @@ export default function HeroComp() {
               </div>
             </div>
 
-            <Image src={icons.line3} height={80} className="mb-[10px]" />
+            <Image
+              src={icons.line3}
+              alt="Line"
+              height={80}
+              className="mb-[10px]"
+            />
 
             <div className="flex flex-row items-center gap-[10px] w-full justify-between">
               <div className="w-[45%] flex justify-end">
@@ -472,14 +541,18 @@ export default function HeroComp() {
               </div>
 
               <div className="mb-[10px] w-[10%] flex justify-center">
-                <Image src={images.circle4} width={85} />
+                <Image src={images.circle4} alt="Circle" width={85} />
               </div>
 
               <div className={`${styles.line2Container} w-[45%]`}>
                 <h2 className={`${styles.title}`} style={{ top: "-60px" }}>
                   Масштабирование и увеличение прибыли
                 </h2>
-                <Image src={icons.line2} className="-scale-x-100 w-full" />
+                <Image
+                  src={icons.line2}
+                  alt="Line"
+                  className="-scale-x-100 w-full"
+                />
                 <p className={styles.description}>
                   Стабильный рост продаж и расширение клиентской базы позволят
                   нам увеличить прибыль и расширить деятельность. На этом этапе

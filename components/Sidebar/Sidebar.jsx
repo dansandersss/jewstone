@@ -68,7 +68,6 @@ const Sidebar = () => {
           </div>
           <div className="sidebar_links flex flex-col justify-between h-[calc(100%-225px)]">
             <ul className="nav_block text-gray-200 text-[14px]">
-              {/* Профиль с вложенными ссылками */}
               <li
                 className={`nav_link flex items-center gap-3 cursor-pointer px-[20px] py-[17px] ${
                   pathname === "/profile"
