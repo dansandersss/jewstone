@@ -39,7 +39,7 @@ export default function PlanComp() {
 
   return (
     <>
-      <div className="container mb-[230px] md:mb-0">
+      <div className="container mb-0">
         <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
           План инвестиций
         </h1>

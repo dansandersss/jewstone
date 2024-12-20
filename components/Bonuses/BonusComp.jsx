@@ -5,7 +5,7 @@ import CustomButton from "../CustomButton/CustomButton";
 export default function BonusComp() {
   return (
     <>
-      <div className="container mb-[230px]">
+      <div className="container">
         <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
           Бонусы
         </h1>

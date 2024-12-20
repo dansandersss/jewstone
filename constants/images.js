@@ -1,9 +1,13 @@
 import logo from "../public/assets/images/logo.png";
 import logo2 from "../public/assets/images/logo-reg.png";
 import bonusImg from "../public/assets/images/bonusImg.png";
+
+import slide2 from "@/public/assets/images/slide2.png";
+import slide3 from "@/public/assets/images/slide3.png";
+import slide4 from "@/public/assets/images/slide4.png";
 import image1 from "@/public/assets/images/image.png";
 import image2 from "@/public/assets/images/image_2.png";
-import image3 from "@/public/assets/images/image_3.png";
+import slide1 from "@/public/assets/images/slide1.png";
 
 import ourClients1 from "@/public/assets/images/ourClients.png";
 import ourClients2 from "@/public/assets/images/ourClients2.png";
@@ -27,9 +31,12 @@ export default {
   logo,
   logo2,
   bonusImg,
+  slide1,
+  slide2,
+  slide3,
+  slide4,
   image1,
   image2,
-  image3,
   ourClients1,
   ourClients2,
   ourClients3,

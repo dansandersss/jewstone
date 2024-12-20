@@ -142,7 +142,7 @@ export default function ProfileInfo() {
             onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
           <button
-            className="bg-customGray py-[23px] pl-[20px] rounded-[10px] text-white w-[300px] xl:w-[389px] hover:-translate-y-1 transition ease-in duration-150"
+            className="bg-customGray py-[23px] px-[20px] rounded-[10px] text-white w-[300px] xl:w-[389px] hover:-translate-y-1 transition ease-in duration-150"
             onClick={handleSaveChanges}
           >
             Сохранить изменения

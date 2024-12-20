@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "@/utils/appwrite";
 
@@ -9,17 +9,27 @@ import logo from "@/constants/images";
 import { links } from "@/constants/navLinks"; // Import links
 import images from "@/constants/images";
 import icons from "@/constants/icons";
-import Footer from "../Footer/Footer";
+// import Footer from "../Footer/Footer";
 
 const Sidebar = () => {
   const [showProfileLinks, setShowProfileLinks] = useState(false);
   const [openBurgerMenu, setOpenBurgerMenu] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const toggleProfileLinks = () => {
     setShowProfileLinks((prev) => !prev);
   };
+
+  useEffect(() => {
+    // Загрузить уведомления только при первой необходимости
+    if (showNotifications && !isLoaded) {
+      fetchNotifications();
+    }
+  }, [showNotifications]);
 
   const handleSignOut = async () => {
     try {
@@ -36,10 +46,53 @@ const Sidebar = () => {
     }
   };
 
+  const fetchNotifications = async () => {
+    try {
+      const userId = "user_id_placeholder"; // Замените на ваш способ получения userId
+      const allNotifications = await getLatestTransactions(user.$id);
+      const latestNotifications = allNotifications.slice(0, 5);
+
+      const formattedNotifications = latestNotifications.map(
+        (notification) => ({
+          ...notification,
+          randomId: convertToRandom9Digits(),
+        })
+      );
+
+      setNotifications(formattedNotifications);
+      setIsLoaded(true);
+    } catch (error) {
+      console.error("Ошибка при получении уведомлений:", error.message);
+    }
+  };
+
+  const convertToRandom9Digits = () => {
+    return Math.floor(100000000 + Math.random() * 900000000).toString();
+  };
+
+  const handleGetNotifications = () => {
+    setShowNotifications((prev) => !prev);
+  };
+
+  const handleRemoveNotification = (randomId) => {
+    const updatedNotifications = notifications.filter(
+      (notification) => notification.randomId !== randomId
+    );
+    setNotifications(updatedNotifications);
+
+    if (updatedNotifications.length === 0) {
+      setShowNotifications(false);
+    }
+  };
+
+  const handleCloseNotifications = () => {
+    setShowNotifications(false);
+  };
+
   return (
     <>
       {/* Мобильный хедер */}
-      <header className="md:hidden fixed mb-12 top-0 left-0 w-full flex items-center justify-between p-4 z-20 bg-white">
+      <header className="md:hidden fixed mb-12 top-0 left-0 w-full flex items-center justify-between p-4 z-30 bg-white">
         <button
           onClick={() => setOpenBurgerMenu((prev) => !prev)}
           aria-label="Toggle Menu"
@@ -55,8 +108,69 @@ const Sidebar = () => {
           <Image src={images.logo2} alt="Logo" width={120} height={30} />
         </div>
 
-        <div>
-          <Image src={icons.notificationsLogo} alt="Notification" width={24} />
+        <div className="relative">
+          <div className="cursor-pointer" onClick={handleGetNotifications}>
+            <Image
+              src={icons.notificationsLogo}
+              alt="Notification"
+              width={24}
+            />
+          </div>
+          {notifications.length > 0 && (
+            <Image
+              className="absolute top-[-5px] right-[-5px]"
+              src={icons.redLogo}
+              alt="Alarm"
+              width={7}
+              height={7}
+            />
+          )}
+
+          {showNotifications && (
+            <div className="absolute right-4 top-[40px] bg-white border shadow-lg rounded-md p-4 w-80 z-50 ">
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-lg font-semibold">Последние транзакции</h3>
+                <button
+                  onClick={handleCloseNotifications}
+                  aria-label="Close Notifications"
+                >
+                  <Image
+                    src={icons.closeIcon} // Убедитесь, что у вас есть иконка для креста
+                    alt="Close"
+                    width={20}
+                    height={20}
+                  />
+                </button>
+              </div>
+              {notifications.length > 0 ? (
+                notifications.map((notification) => (
+                  <div
+                    key={notification.randomId}
+                    className="mb-2 p-2 border-b flex justify-between items-center"
+                  >
+                    <div>
+                      <p className="text-sm text-gray-700 font-mono">
+                        {notification.randomId}{" "}
+                        <span className="text-sm text-green-600">
+                          Подтверждена
+                        </span>
+                      </p>
+                    </div>
+                    <button
+                      onClick={() =>
+                        handleRemoveNotification(notification.randomId)
+                      }
+                      className="text-red-500 text-xs hover:underline"
+                    >
+                      Удалить
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm text-gray-500">Уведомлений нет</p>
+              )}
+            </div>
+          )}
         </div>
       </header>
 
@@ -307,7 +421,7 @@ const Sidebar = () => {
             </div>
           </div>
 
-          <Footer />
+          {/* <Footer /> */}
         </div>
       )}
     </>

@@ -15,7 +15,7 @@ export const ourClientsInfo = [
   },
   {
     image: images.ourClients4,
-    text: "Люди, желающие создать свое собственное украшение",
+    text: "Уникальные украшения на заказ",
   },
 ];
 

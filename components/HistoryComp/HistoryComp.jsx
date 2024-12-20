@@ -31,7 +31,7 @@ export default function HistoryComp() {
   }
 
   return (
-    <div className="container mb-[230px] md:mb-0">
+    <div className="container ">
       <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
         История выплат
       </h1>

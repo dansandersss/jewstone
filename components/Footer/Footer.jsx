@@ -1,4 +1,3 @@
-import icons from "@/constants/icons";
 import { socialLinks } from "@/constants/navLinks";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,11 +5,8 @@ import Link from "next/link";
 export default function Footer({ isFixed = true }) {
   return (
     <div
-      className={`p-3 w-full flex items-center text-customWhiteLight justify-center ${
-        isFixed ? "fixed" : ""
-      } bottom-0 bg-customGray ${
-        isFixed ? "border-customOrange" : "border-none"
-      } border-t-2 z-30`}
+      className={`p-3 w-full relative z-10 flex items-center text-customWhiteLight justify-center bottom-0 bg-customGray  border-customOrange
+       border-t-2`}
     >
       <div className="container flex flex-col items-center gap-1 justify-center">
         <div className="information text-[16px] text-center flex flex-col gap-1">

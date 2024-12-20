@@ -49,7 +49,7 @@ export default function ProfileComp() {
   };
 
   return (
-    <div className="container mb-[230px] md:mb-0 w-full h-full xl:h-[calc(100%-200px)] pb-[150px]">
+    <div className="container mb-0 w-full h-full xl:h-[calc(100%-200px)] pb-[150px]">
       <div className="xl:flex block xl:flex-col xl:justify-center justify-normal">
         <h1 className="text-customOrange text-[26px] font-bold mb-5 sm:text-center md:text-left">
           Личные данные

@@ -12,8 +12,13 @@ module.exports = {
         customWhite: "rgba(243, 243, 243, 1)",
         customGreen: "rgba(21, 214, 52, 1)",
         customOrange: "rgba(214, 141, 21, 1)",
+        customOrangeDark: "rgba(214, 141, 21, 1)",
         customOrangeLight: "rgba(214, 141, 21, 0.55)",
         customWhiteLight: "rgba(255, 255, 255, 0.55)",
+      },
+      fontFamily: {
+        montserrat: ["var(--font-montserrat)", "sans-serif"], // Montserrat
+        georgia: ["Georgia", "serif"], // Georgia
       },
     },
   },
