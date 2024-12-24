@@ -34,9 +34,9 @@ const RegisterPage = () => {
 
   return (
     <div className="container bg-white flex md:justify-normal justify-center flex-col my-0 mx-auto w-full h-screen">
-      <div className="flex flex-col items-center justify-center w-full h-screen">
+      <div className="flex flex-col items-center w-full h-screen">
         <Image
-          className="bg-white mt-5 mb-[100px]"
+          className="bg-white mt-5 mb-[145px]"
           src={images.logo2}
           alt="Logo Registration"
           width={300}
