@@ -8,6 +8,7 @@ import statsIcon from "../public/assets/icons/stats.png";
 import walletIcon from "../public/assets/icons/wallet.png";
 import closeIcon from "../public/assets/icons/close.svg";
 import arrowBackIcon from "../public/assets/icons/arrow_back.png";
+import closeMenu from "@/public/assets/icons/closeMenu.png";
 
 import tgIcon from "../public/assets/icons/tg.png";
 import vkIcon from "../public/assets/icons/vk.png";

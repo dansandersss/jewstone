@@ -19,6 +19,7 @@ const Sidebar = () => {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [toggleIcon, setToggleIcon] = useState(icons.menuIcon);
 
   const toggleProfileLinks = () => {
     setShowProfileLinks((prev) => !prev);
@@ -89,20 +90,19 @@ const Sidebar = () => {
     setShowNotifications(false);
   };
 
+  const handleOpenMenu = () => {
+    setOpenBurgerMenu((prev) => !prev);
+    setToggleIcon((prevIcon) =>
+      prevIcon === icons.menuIcon ? icons.closeIcon : icons.menuIcon
+    );
+  };
+
   return (
     <>
       {/* Мобильный хедер */}
       <header className="md:hidden fixed mb-12 top-0 left-0 w-full flex items-center justify-between p-4 z-30 bg-white">
-        <button
-          onClick={() => setOpenBurgerMenu((prev) => !prev)}
-          aria-label="Toggle Menu"
-        >
-          <Image
-            src={icons.menuIcon}
-            alt="Burger Menu"
-            width={25}
-            height={25}
-          />
+        <button onClick={handleOpenMenu} aria-label="Toggle Menu">
+          <Image src={toggleIcon} alt="Burger Menu" width={25} height={25} />
         </button>
         <div className="logo">
           <Image src={images.logo2} alt="Logo" width={120} height={30} />

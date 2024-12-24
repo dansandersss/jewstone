@@ -15,7 +15,7 @@ export const ourClientsInfo = [
   },
   {
     image: images.ourClients4,
-    text: "Уникальные украшения на заказ",
+    text: "Ценители уникальных украшений",
   },
 ];
 

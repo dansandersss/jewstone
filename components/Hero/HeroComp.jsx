@@ -69,12 +69,12 @@ export default function HeroComp() {
               <div className="flex flex-col gap-5 items-center">
                 <CustomButton
                   text="Инвестировать сейчас"
-                  customClass="bg-customGray w-[240px] md:w-[360px] text-white py-[15px] md:py-[20px] px-[25px] md:px-[55px] rounded-none text-[16px]"
+                  customClass="bg-customGray w-[330px] sm:w-[470px] md:w-[360px] text-white py-[15px] md:py-[20px] px-[25px] md:px-[55px] rounded-none text-[16px]"
                   onClick={handleClick}
                 />
                 <CustomButton
                   text="Войти в личный кабинет"
-                  customClass="bg-customOrange w-[240px] md:w-[360px] text-white py-[15px] md:py-[20px] px-[25px] md:px-[55px] rounded-none text-[16px]"
+                  customClass="bg-customOrange w-[330px] sm:w-[470px] md:w-[360px] text-white py-[15px] md:py-[20px] px-[25px] md:px-[55px] rounded-none text-[16px]"
                   onClick={handleLoginRedirect}
                 />
               </div>
@@ -290,7 +290,7 @@ export default function HeroComp() {
                 className="relative w-[187px] sm:w-[440px] md:w-[305px]"
               >
                 <div className="relative z-20">
-                  <h3 className="text-[15px] md:text-[25px] text-customOrange font-georgia leading-[17.05px] md:leading-[28.41px] text-center pb-[7px] md:pb-[15px] mb-[7px] md:mb-[15px] border-b-black border-b">
+                  <h3 className="text-[17px] md:text-[25px] text-customOrange font-georgia leading-[17.05px] md:leading-[28.41px] text-center pb-[7px] md:pb-[15px] mb-[7px] md:mb-[15px] border-b-black border-b">
                     {advantage.title}
                   </h3>
                   <p className="w-[187px] sm:w-[440px] md:w-[305px] text-[16px] leading-[19.5px] text-center text-customGray opacity-80">
@@ -364,7 +364,7 @@ export default function HeroComp() {
             </div>
             <CustomButton
               text="Инвестировать сейчас"
-              customClass="bg-customGray w-[240px] md:w-[470px] text-white rounded-none px-[25px] md:px-0 py-[15px] md:py-[18px]"
+              customClass="bg-customGray w-[330px] sm:w-[470px] md:w-[470px] text-white rounded-none px-[25px] md:px-0 py-[15px] md:py-[18px]"
               onClick={handleClick}
             />
           </div>
@@ -413,7 +413,7 @@ export default function HeroComp() {
                   alt="Line"
                   className="w-[330px] sm:w-[440px]"
                 />
-                <p className="w-[330px] sm:w-[440px] text-[14px] leading-[14.63px]">
+                <p className="w-[330px] sm:w-[440px] text-[14px] leading-[14.63px] px-5">
                   Мы провели тщательное исследование рынка и выявили высокий
                   спрос на изделия на заказ. Были разработаны концепции
                   уникальных продуктов, протестированы прототипы и определены
@@ -439,8 +439,8 @@ export default function HeroComp() {
                   Завершено
                 </span>
               </div>
-              <div className="w-full flex flex-col gap-[10px]">
-                <h2 className="text-customOrangeDark  text-[18px] leading-[20.45px] text-center px-5">
+              <div className="w-full flex flex-col gap-[10px] mb-[10px]">
+                <h2 className="text-customOrangeDark  text-[18px] leading-[20.45px] px-5">
                   Запуск производства и пилотные продажи
                 </h2>
                 <Image
@@ -448,7 +448,7 @@ export default function HeroComp() {
                   alt="Line"
                   className="w-[330px] sm:w-[440px]"
                 />
-                <p className="w-[330px] sm:w-[440px] text-[14px] leading-[14.63px]">
+                <p className="w-[330px] sm:w-[440px] text-[14px] leading-[14.63px] px-5">
                   Мы запустили первую партию базовых украшений и изделий на
                   заказ. Продажи показали успешные результаты, что подтвердило
                   актуальность нашего продукта.
@@ -473,8 +473,8 @@ export default function HeroComp() {
                   Текущий этап
                 </span>
               </div>
-              <div className="w-full flex flex-col gap-[10px]">
-                <h2 className="text-customOrangeDark text-[18px] leading-[20.45px] text-center px-5">
+              <div className="w-full flex flex-col gap-[10px] mb-[10px]">
+                <h2 className="text-customOrangeDark text-[18px] leading-[20.45px] px-5">
                   Привлечение инвестиций и обеспечение бесперебойного
                   функционирования
                 </h2>
@@ -483,7 +483,7 @@ export default function HeroComp() {
                   alt="Line"
                   className="w-[330px] sm:w-[440px]"
                 />
-                <p className="w-[330px] sm:w-[440px] text-[14px] leading-[14.63px]">
+                <p className="w-[330px] sm:w-[440px] text-[14px] leading-[14.63px] px-5">
                   На данном этапе мы привлекаем инвестиции для запуска проекта.
                   Обладая всеми инструментами, мы можем контролировать процесс и
                   получать доход.
@@ -509,7 +509,7 @@ export default function HeroComp() {
                 </span>
               </div>
               <div className="w-full flex flex-col gap-[10px]">
-                <h2 className="text-customOrangeDark  text-[18px] leading-[20.45px] text-center px-5">
+                <h2 className="text-customOrangeDark  text-[18px] leading-[20.45px] px-5">
                   Масштабирование и увеличение прибыли
                 </h2>
                 <Image
@@ -517,7 +517,7 @@ export default function HeroComp() {
                   alt="Line"
                   className="w-[330px] sm:w-[440px]"
                 />
-                <p className="w-[330px] text-[14px] leading-[14.63px]">
+                <p className="w-[330px] text-[14px] leading-[14.63px] px-5">
                   Стабильный рост продаж и расширение клиентской базы позволят
                   нам увеличить прибыль и расширить деятельность. На этом этапе
                   инвесторы начнут получать увеличенные доходы от проекта
@@ -540,7 +540,7 @@ export default function HeroComp() {
                   Разработка концепции и анализ рынка
                 </h2>
                 <Image src={icons.line2} alt="Line" className="w-full" />
-                <p className={styles.description}>
+                <p className={`${styles.description}`}>
                   Мы провели тщательное исследование рынка и выявили высокий
                   спрос на изделия на заказ. Были разработаны концепции
                   уникальных продуктов, протестированы прототипы и определены

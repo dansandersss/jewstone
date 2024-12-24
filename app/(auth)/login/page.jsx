@@ -11,9 +11,9 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false); // Стейт для показа/скрытия пароля
-  const [forgotPassword, setForgotPassword] = useState(false); // Стейт для отображения формы восстановления пароля
-  const [recoveryEmail, setRecoveryEmail] = useState(""); // Email для восстановления пароля
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [recoveryEmail, setRecoveryEmail] = useState("");
   const router = useRouter();
 
   const handleLogin = async (e) => {
@@ -41,7 +41,7 @@ const LoginPage = () => {
       alert(
         "Инструкции по восстановлению пароля были отправлены на ваш email."
       );
-      setForgotPassword(false); // Закрыть форму восстановления пароля после успешной отправки
+      setForgotPassword(false);
     } catch (err) {
       setError("Ошибка восстановления пароля. Попробуйте снова.");
       console.error("Password recovery error:", err);
@@ -50,9 +50,9 @@ const LoginPage = () => {
 
   return (
     <div className="container bg-white flex md:justify-normal justify-center flex-col my-0 mx-auto w-full h-screen">
-      <div className="flex flex-col items-center justify-center w-full h-screen">
+      <div className="flex flex-col items-center w-full h-screen">
         <Image
-          className="bg-white mt-5 mb-[100px]"
+          className="bg-white mt-5 mb-[145px]"
           src={images.logo2}
           alt="Logo Registration"
           width={300}
