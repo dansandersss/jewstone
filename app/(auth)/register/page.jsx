@@ -36,10 +36,13 @@ const RegisterPage = () => {
     <div className="container bg-white flex md:justify-normal flex-col my-0 mx-auto w-full h-screen">
       <div className="flex flex-col items-center w-full">
         <Image
-          className="bg-white mt-5 mb-[100px]"
+          className="bg-white cursor-pointer mt-5 mb-[100px]"
           src={images.logo2}
           alt="Logo Registration"
           width={300}
+          onClick={() => {
+            router.push("/main");
+          }}
         />
         <div className="flex justify-center items-center">
           <div className="md:w-[530px] sm:w-[330px] lg:w-[630px] p-6 bg-white rounded-lg shadow-lg">

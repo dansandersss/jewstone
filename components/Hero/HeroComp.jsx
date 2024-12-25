@@ -63,7 +63,7 @@ export default function HeroComp() {
               </h1>
               <p className=" text-[14px] leading-[17.07px] md:text-[20px] md:leading-[24.38px] text-center w-[330px] md:w-[655px]">
                 Вступайте в бизнес клуб и получайте дополнительный доход. С нас
-                — готовы бизнес-план и управление проектом, с вас — только
+                — готовый бизнес-план и управление проектом, с вас — только
                 инвестиции.
               </p>
               <div className="flex flex-col gap-5 items-center">
